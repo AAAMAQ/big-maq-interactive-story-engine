@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OnboardingSystem } from "@/components/onboarding-system";
 import { ServiceWorker } from "@/components/service-worker";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
@@ -22,6 +23,7 @@ export default function RootLayout({
         <ServiceWorker />
         <SiteHeader />
         {children}
+        <OnboardingSystem />
       </body>
     </html>
   );

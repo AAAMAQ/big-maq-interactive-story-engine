@@ -12,11 +12,12 @@ import {
   Lightbulb, Plus, Redo2, Save, Search, Share2, Trash2, Undo2, Upload,
 } from "lucide-react";
 import { analyzeStory } from "@/lib/analytics";
+import { ShareStoryDialog } from "@/components/share-story-dialog";
 import { createStoryShareExport, downloadJson, storyFilename } from "@/lib/download";
 import { storyToHtml, storyToSvg } from "@/lib/exports";
 import { useOfflineStatus } from "@/lib/offline";
 import { getOrCreateStoryPasscode, getStory, listBackups, restoreBackup, saveStory } from "@/lib/storage";
-import { applyEffects, evaluateCondition, newId, Scene, StoryDocument, VerificationIssue, verifyStory } from "@/lib/story";
+import { applyEffects, evaluateCondition, newId, resolveSceneTransition, Scene, StoryDocument, VerificationIssue, verifyStory } from "@/lib/story";
 
 type SceneNode = Node<{ scene: Scene; isStart: boolean; hasWarning: boolean; dimmed: boolean }, "scene">;
 type BackupRecord = { id: string; createdAt: string; story: StoryDocument };
@@ -50,7 +51,11 @@ function toEdges(story: StoryDocument, playPath: string[]): Edge[] {
     if (scene.transition.type === "ending") return [];
     const links = scene.transition.type === "continue"
       ? [{ id: `${scene.id}-continue`, label: "Continue", targetSceneId: scene.transition.targetSceneId }]
-      : scene.transition.choices;
+      : scene.transition.type === "choices"
+        ? scene.transition.choices
+        : scene.transition.type === "random"
+          ? scene.transition.options.map((option, index) => ({ ...option, id: option.id || `${scene.id}-random-${index}`, label: `Random ${option.weight}` }))
+          : scene.transition.table.map((option, index) => ({ ...option, id: option.id || `${scene.id}-encounter-${index}`, label: `Encounter ${option.weight}` }));
     return links.map((choice) => {
       const active = playPath.includes(scene.id) && playPath.includes(choice.targetSceneId);
       return {
@@ -114,6 +119,7 @@ function EditorInner({ storyId }: { storyId: string }) {
   const [playVariables, setPlayVariables] = useState<StoryDocument["variables"]>({});
   const [playPath, setPlayPath] = useState<string[]>([]);
   const [backups, setBackups] = useState<BackupRecord[]>([]);
+  const [sharingOpen, setSharingOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const { offline, updateReady } = useOfflineStatus();
   const issues = useMemo(() => story ? verifyStory(story) : [], [story]);
@@ -250,7 +256,7 @@ function EditorInner({ storyId }: { storyId: string }) {
     const shared = await createStoryShareExport(story, editable ? "editable" : "view-only", passcode);
     downloadJson(storyFilename(story), shared);
     if (editable) {
-      alert(`Editable export created. Share this passcode separately with trusted editors: ${passcode}`);
+      alert(`Editable export created. Share this password separately with trusted editors: ${passcode}`);
     }
   }
   function exportHtml() {
@@ -259,12 +265,6 @@ function EditorInner({ storyId }: { storyId: string }) {
   function exportSvg() {
     if (story) downloadText(`${story.title.replace(/[^a-z0-9]+/gi, "-") || "story"}-map.svg`, storyToSvg(story), "image/svg+xml");
   }
-  async function shareStory() {
-    if (!story) return;
-    const text = `Big MAQ story file: ${story.title}`;
-    if (navigator.share) await navigator.share({ title: story.title, text, url: window.location.origin });
-    else if (navigator.clipboard) await navigator.clipboard.writeText(`${text} ${window.location.origin}`);
-  }
   function startPlaytest(sceneId = story?.startSceneId || "") {
     setPlaySceneId(sceneId);
     setPlayVariables(story?.variables || {});
@@ -272,7 +272,7 @@ function EditorInner({ storyId }: { storyId: string }) {
     setActiveTab("playtest");
   }
   function playChoice(target: string, effects?: string) {
-    setPlayVariables((vars) => applyEffects(effects, vars));
+    setPlayVariables((vars) => applyEffects(effects, vars, story));
     setPlaySceneId(target);
     setPlayPath((path) => [...path, target]);
   }
@@ -325,7 +325,7 @@ function EditorInner({ storyId }: { storyId: string }) {
           <button className="button button-primary px-3 py-2 text-sm disabled:opacity-40" disabled={!!blockingIssues.length} onClick={exportJson}><Download size={15} /> JSON</button>
           <button className="button button-secondary px-3 py-2 text-sm" onClick={exportHtml}><FileText size={15} /> HTML</button>
           <button className="button button-secondary px-3 py-2 text-sm" onClick={exportSvg}><FileImage size={15} /> Map</button>
-          <button className="button button-secondary px-3 py-2 text-sm" onClick={shareStory}><Share2 size={15} /> Share</button>
+          <button className="button button-secondary px-3 py-2 text-sm" onClick={() => setSharingOpen(true)}><Share2 size={15} /> Share</button>
         </div>
       </div>
       <div className="grid min-h-0 lg:grid-cols-[1fr_390px]">
@@ -349,6 +349,7 @@ function EditorInner({ storyId }: { storyId: string }) {
           {activeTab === "learn" && <LearningPanel />}
         </aside>
       </div>
+      {sharingOpen && <ShareStoryDialog story={story} onClose={() => setSharingOpen(false)} />}
     </main>
   );
 }
@@ -376,14 +377,31 @@ function Inspector({
     <label className="label">Optional HTTPS audio URL<input className="input" value={selected.audioUrl || ""} onChange={(event) => updateScene(selected.id, { audioUrl: event.target.value })} /></label>
     <label className="label">Local audio attachment<input className="input" type="file" accept="audio/*" onChange={(event) => attachMedia("audio", event.target.files?.[0])} /></label>
     <label className="label">Bonus text<textarea className="input min-h-20" value={selected.bonusText || ""} onChange={(event) => updateScene(selected.id, { bonusText: event.target.value })} /></label>
+    <label className="label">Bonus condition<input className="input" placeholder="Optional, e.g. friendship >= 2" value={selected.bonusCondition || ""} onChange={(event) => updateScene(selected.id, { bonusCondition: event.target.value })} /></label>
     <label className="label">Node color<input className="h-10 w-full" type="color" value={selected.color} onChange={(event) => updateScene(selected.id, { color: event.target.value })} /></label>
     <label className="label">Story variables<textarea className="input min-h-16" value={JSON.stringify(story.variables || {}, null, 2)} onChange={(event) => {
       try { updateStory({ variables: JSON.parse(event.target.value || "{}") }); } catch {}
     }} /></label>
+    <label className="label">Loot tables<textarea className="input min-h-20" value={JSON.stringify(story.lootTables || {}, null, 2)} onChange={(event) => {
+      try { updateStory({ lootTables: JSON.parse(event.target.value || "{}") }); } catch {}
+    }} /></label>
+    <div className="rounded-xl bg-slate-50 p-3 text-xs leading-5 text-slate-700">
+      RPG examples: <code>hasItem(&quot;Iron Sword&quot;)</code>, <code>strength &gt;= 10</code>, <code>luck &gt;= 12</code>, <code>roll = random(1,20)</code>, <code>gainXP(10)</code>, <code>addItem(&quot;Potion&quot;)</code>, <code>removeItem(&quot;Potion&quot;)</code>, <code>rollLoot(&quot;starter&quot;)</code>.
+    </div>
     <label className="label">Transition<select className="input" value={selected.transition.type} onChange={(event) => {
       const type = event.target.value;
-      updateScene(selected.id, { transition: type === "ending" ? { type: "ending" } : type === "continue" ? { type: "continue", targetSceneId: story.startSceneId } : { type: "choices", choices: [] } });
-    }}><option value="ending">Ending</option><option value="continue">Continue</option><option value="choices">Choices</option></select></label>
+      updateScene(selected.id, {
+        transition: type === "ending"
+          ? { type: "ending" }
+          : type === "continue"
+            ? { type: "continue", targetSceneId: story.startSceneId }
+            : type === "random"
+              ? { type: "random", options: [{ id: newId("random"), weight: 100, targetSceneId: story.startSceneId }] }
+              : type === "encounter"
+                ? { type: "encounter", table: [{ id: newId("encounter"), weight: 100, targetSceneId: story.startSceneId }] }
+                : { type: "choices", choices: [] },
+      });
+    }}><option value="ending">Ending</option><option value="continue">Continue</option><option value="choices">Choices</option><option value="random">Weighted random</option><option value="encounter">Encounter table</option></select></label>
     {selected.transition.type === "continue" && <label className="label">Continue to<select className="input" value={selected.transition.targetSceneId} onChange={(event) => updateScene(selected.id, { transition: { type: "continue", targetSceneId: event.target.value } })}>{story.scenes.map((scene) => <option key={scene.id} value={scene.id}>{scene.title}</option>)}</select></label>}
     {selected.transition.type === "choices" && selected.transition.choices.map((choice, index) => <div className="card grid gap-2 p-3" key={choice.id}>
       <input className="input" value={choice.label} onChange={(event) => updateScene(selected.id, { transition: { type: "choices", choices: selected.transition.type === "choices" ? selected.transition.choices.map((item, itemIndex) => itemIndex === index ? { ...item, label: event.target.value } : item) : [] } })} />
@@ -393,6 +411,18 @@ function Inspector({
       <button className="text-left text-xs font-bold text-red-700" onClick={() => updateScene(selected.id, { transition: { type: "choices", choices: selected.transition.type === "choices" ? selected.transition.choices.filter((_, itemIndex) => itemIndex !== index) : [] } })}>Remove choice</button>
     </div>)}
     {selected.transition.type === "choices" && <button className="button button-secondary text-sm" onClick={() => updateScene(selected.id, { transition: { type: "choices", choices: [...(selected.transition.type === "choices" ? selected.transition.choices : []), { id: newId("choice"), label: "New choice", targetSceneId: story.startSceneId }] } })}><Plus size={15} /> Add choice</button>}
+    {selected.transition.type === "random" && <WeightedTargetEditor
+      addLabel="Add random result"
+      entries={selected.transition.options}
+      story={story}
+      update={(entries) => updateScene(selected.id, { transition: { type: "random", options: entries } })}
+    />}
+    {selected.transition.type === "encounter" && <WeightedTargetEditor
+      addLabel="Add encounter"
+      entries={selected.transition.table}
+      story={story}
+      update={(entries) => updateScene(selected.id, { transition: { type: "encounter", table: entries } })}
+    />}
     <button className="button button-secondary text-sm" disabled={selected.id === story.startSceneId} onClick={() => updateStory({ startSceneId: selected.id })}>Make start scene</button>
     <button className="button button-danger text-sm disabled:opacity-40" disabled={selected.id === story.startSceneId} onClick={removeScene}><Trash2 size={15} /> Delete scene</button>
     <section className="border-t border-slate-200 pt-4">
@@ -400,6 +430,31 @@ function Inspector({
       <div className="mt-2 grid gap-2">{backups.slice(0, 4).map((backup) => <button className="text-left text-xs font-bold text-indigo-700" key={backup.id} onClick={() => restore(backup.id)}>Restore {new Date(backup.createdAt).toLocaleString()}</button>)}</div>
     </section>
   </div>;
+}
+
+function WeightedTargetEditor({
+  addLabel,
+  entries,
+  story,
+  update,
+}: {
+  addLabel: string;
+  entries: NonNullable<Extract<Scene["transition"], { type: "random" }>["options"]>;
+  story: StoryDocument;
+  update: (entries: NonNullable<Extract<Scene["transition"], { type: "random" }>["options"]>) => void;
+}) {
+  return <>
+    <div className="rounded-xl bg-indigo-50 p-3 text-xs leading-5 text-indigo-950">
+      The engine chooses one destination using weights. Use this for dice rolls, wild encounters, loot outcomes, weather, festivals, secret events, and other RPG-style surprises.
+    </div>
+    {entries.map((entry, index) => <div className="card grid gap-2 p-3" key={entry.id || index}>
+      <label className="label">Weight<input className="input" type="number" min={1} value={entry.weight} onChange={(event) => update(entries.map((item, itemIndex) => itemIndex === index ? { ...item, weight: Number(event.target.value) || 1 } : item))} /></label>
+      <label className="label">Target scene<select className="input" value={entry.targetSceneId} onChange={(event) => update(entries.map((item, itemIndex) => itemIndex === index ? { ...item, targetSceneId: event.target.value } : item))}>{story.scenes.map((scene) => <option key={scene.id} value={scene.id}>{scene.title}</option>)}</select></label>
+      <input className="input" placeholder={'Optional effects, e.g. gainXP(10); addItem("Potion"); roll = random(1,6)'} value={entry.effects || ""} onChange={(event) => update(entries.map((item, itemIndex) => itemIndex === index ? { ...item, effects: event.target.value } : item))} />
+      <button className="text-left text-xs font-bold text-red-700" onClick={() => update(entries.filter((_, itemIndex) => itemIndex !== index))}>Remove result</button>
+    </div>)}
+    <button className="button button-secondary text-sm" onClick={() => update([...entries, { id: newId("result"), weight: 10, targetSceneId: story.startSceneId }])}><Plus size={15} /> {addLabel}</button>
+  </>;
 }
 
 function AnalyticsPanel({ analytics, issues, focusScene }: { analytics: ReturnType<typeof analyzeStory>; issues: VerificationIssue[]; focusScene: (id: string) => void }) {
@@ -413,6 +468,12 @@ function AnalyticsPanel({ analytics, issues, focusScene }: { analytics: ReturnTy
 
 function PlaytestPanel({ scene, story, variables, path, start, move }: { scene: Scene; story: StoryDocument; variables: StoryDocument["variables"]; path: string[]; start: () => void; move: (target: string, effects?: string) => void }) {
   const available = scene.transition.type === "choices" ? scene.transition.choices.filter((choice) => evaluateCondition(choice.condition, variables)) : [];
+  const bonusAvailable = !!scene.bonusText && evaluateCondition(scene.bonusCondition, variables);
+  const randomLabel = scene.transition.type === "random" ? "Roll random result" : scene.transition.type === "encounter" ? "Roll encounter" : "";
+  function roll() {
+    const result = resolveSceneTransition(scene);
+    if (result) move(result.targetSceneId, result.effects);
+  }
   return <div className="mt-4">
     <h2 className="text-lg font-black text-indigo-950">Playtest preview</h2>
     <p className="mt-2 text-xs font-bold text-slate-500">Path length: {path.length}</p>
@@ -424,9 +485,11 @@ function PlaytestPanel({ scene, story, variables, path, start, move }: { scene: 
       {(scene.localImageDataUrl || scene.imageUrl) && <img className="mt-3 max-h-36 w-full rounded-xl object-cover" src={scene.localImageDataUrl || scene.imageUrl} alt="" />}
       {(scene.localAudioDataUrl || scene.audioUrl) && <audio className="mt-3 w-full" src={scene.localAudioDataUrl || scene.audioUrl} controls />}
       <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-slate-700">{scene.body}</p>
+      {bonusAvailable && <p className="mt-3 rounded-xl bg-violet-50 p-3 text-xs leading-5 text-violet-900"><strong>Bonus:</strong> {scene.bonusText}</p>}
       <div className="mt-4 grid gap-2">
         {scene.transition.type === "choices" && available.map((choice) => <button className="button button-primary justify-between text-sm" key={choice.id} onClick={() => move(choice.targetSceneId, choice.effects)}>{choice.label}<span>→</span></button>)}
         {scene.transition.type === "continue" && <button className="button button-primary text-sm" onClick={() => move(scene.transition.type === "continue" ? scene.transition.targetSceneId : scene.id)}>Continue →</button>}
+        {(scene.transition.type === "random" || scene.transition.type === "encounter") && <button className="button button-primary justify-between text-sm" onClick={roll}>{randomLabel}<span>→</span></button>}
         {scene.transition.type === "ending" && <p className="rounded-xl bg-emerald-50 p-3 text-center text-sm font-bold text-emerald-800">Ending reached</p>}
       </div>
     </article>
@@ -443,7 +506,8 @@ function LearningPanel() {
       <article className="rounded-xl bg-indigo-50 p-3"><strong>2. Connect choices.</strong> Choices become edges that move readers to another scene.</article>
       <article className="rounded-xl bg-indigo-50 p-3"><strong>3. Merge paths.</strong> Multiple choices can point to one shared scene.</article>
       <article className="rounded-xl bg-indigo-50 p-3"><strong>4. Add variables.</strong> Use conditions like <code>score &gt;= 2</code> and effects like <code>score += 1</code>.</article>
-      <article className="rounded-xl bg-indigo-50 p-3"><strong>5. Verify before sharing.</strong> The verifier checks links, endings, empty passages, loops, and unreachable scenes.</article>
+      <article className="rounded-xl bg-indigo-50 p-3"><strong>5. Build RPG systems.</strong> Weighted random and encounter nodes drive battles, travel events, weather, merchants, bandits, and hidden routes. Use item checks, stat checks, and loot tables to gate secret content.</article>
+      <article className="rounded-xl bg-indigo-50 p-3"><strong>6. Verify before sharing.</strong> The verifier checks links, endings, empty passages, loops, and unreachable scenes.</article>
     </div>
   </div>;
 }

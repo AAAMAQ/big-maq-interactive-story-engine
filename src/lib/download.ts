@@ -23,12 +23,53 @@ export async function hashPasscode(passcode: string) {
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
+function toBase64(bytes: Uint8Array) {
+  return btoa(String.fromCharCode(...bytes));
+}
+
+function fromBase64(value: string) {
+  return Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
+}
+
+async function derivePasscodeVerifier(passcode: string, saltBase64: string) {
+  const keyMaterial = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(passcode.trim()),
+    "PBKDF2",
+    false,
+    ["deriveBits"],
+  );
+  const bits = await crypto.subtle.deriveBits(
+    {
+      name: "PBKDF2",
+      hash: "SHA-256",
+      salt: fromBase64(saltBase64),
+      iterations: 150000,
+    },
+    keyMaterial,
+    256,
+  );
+  return toBase64(new Uint8Array(bits));
+}
+
+async function createPasscodeVerifier(passcode: string) {
+  const salt = new Uint8Array(16);
+  crypto.getRandomValues(salt);
+  const passcodeSalt = toBase64(salt);
+  return {
+    passcodeAlgorithm: "PBKDF2-SHA256-150000",
+    passcodeSalt,
+    passcodeVerifier: await derivePasscodeVerifier(passcode, passcodeSalt),
+  };
+}
+
 export async function createStoryShareExport(story: StoryDocument, mode: StoryShareMode, passcode?: string) {
   const copy = structuredClone(story);
+  const verifier = mode === "editable" && passcode ? await createPasscodeVerifier(passcode) : {};
   copy.access = {
     mode,
     passcodeProtected: mode === "editable",
-    passcodeHash: mode === "editable" && passcode ? await hashPasscode(passcode) : undefined,
+    ...verifier,
     exportedAt: new Date().toISOString(),
   };
   return copy;
@@ -37,6 +78,9 @@ export async function createStoryShareExport(story: StoryDocument, mode: StorySh
 export async function canEditSharedStory(story: StoryDocument, passcode: string) {
   if (story.access?.mode !== "editable") return false;
   if (!story.access.passcodeProtected) return true;
+  if (story.access.passcodeSalt && story.access.passcodeVerifier) {
+    return story.access.passcodeVerifier === await derivePasscodeVerifier(passcode, story.access.passcodeSalt);
+  }
   return story.access.passcodeHash === await hashPasscode(passcode);
 }
 

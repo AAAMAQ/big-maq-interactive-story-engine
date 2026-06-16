@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpenText, CircleUserRound, HelpCircle, Library, Network } from "lucide-react";
+import { BookOpenText, CircleUserRound, HelpCircle, Library, Network, Settings } from "lucide-react";
 
 export function SiteHeader() {
   return (
@@ -11,15 +11,18 @@ export function SiteHeader() {
           </span>
           <span>Big MAQ Story Engine</span>
         </Link>
-        <nav className="flex items-center gap-1 text-sm font-bold text-slate-600">
-          <Link className="button px-3 py-2 hover:bg-indigo-50" href="/library">
+        <nav className="flex items-center gap-1 text-sm font-bold text-slate-600" data-onboarding="navigation">
+          <Link className="button px-3 py-2 hover:bg-indigo-50" href="/library" data-onboarding="nav-library">
             <Library size={16} /> <span className="hidden sm:inline">Library</span>
           </Link>
-          <Link className="button px-3 py-2 hover:bg-indigo-50" href="/reader">
+          <Link className="button px-3 py-2 hover:bg-indigo-50" href="/reader" data-onboarding="nav-reader">
             <BookOpenText size={16} /> <span className="hidden sm:inline">Reader</span>
           </Link>
-          <Link className="button px-3 py-2 hover:bg-indigo-50" href="/help">
+          <Link className="button px-3 py-2 hover:bg-indigo-50" href="/help" data-onboarding="nav-help">
             <HelpCircle size={16} /> <span className="hidden sm:inline">Help</span>
+          </Link>
+          <Link className="button px-3 py-2 hover:bg-indigo-50" href="/settings" data-onboarding="nav-settings">
+            <Settings size={16} /> <span className="hidden sm:inline">Settings</span>
           </Link>
           <Link className="button px-3 py-2 hover:bg-indigo-50" href="/credits">
             <CircleUserRound size={16} /> <span className="hidden sm:inline">Credits</span>

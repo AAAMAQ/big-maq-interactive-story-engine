@@ -10,6 +10,143 @@ const BACKUPS = "backups";
 const SETTINGS = "settings";
 const PASSCODES = "passcodes";
 
+export type AppSettings = {
+  theme: "light" | "dark" | "system";
+  language: string;
+  interfaceScale: "compact" | "comfortable" | "large";
+  fontSize: number;
+  startupPage: "home" | "reader" | "library" | "settings";
+  autoSave: boolean;
+  uiDensity: "compact" | "comfortable";
+  sidebarWidth: number;
+  animations: boolean;
+  reducedMotion: boolean;
+  colorAccessibility: "default" | "high-contrast" | "color-blind-friendly";
+  readingFont: string;
+  readingFontSize: number;
+  readingWidth: "narrow" | "medium" | "wide";
+  readingTheme: "paper" | "bright" | "night";
+  readingProgressTracking: boolean;
+  continueReading: "restart" | "resume";
+  pageTransitions: boolean;
+  autoSaveInterval: number;
+  editorFont: string;
+  editorFontSize: number;
+  spellCheck: boolean;
+  grammarCheck: boolean;
+  wordCount: boolean;
+  characterCount: boolean;
+  branchVisualization: "simple" | "detailed";
+  writingFocusMode: boolean;
+  beginnerMode: boolean;
+  advancedMode: boolean;
+  onboardingStatus: "new" | "started" | "skipped" | "never" | "complete";
+  currentTutorial?: string;
+  completedTutorials: string[];
+  notifications: {
+    storyUpdates: boolean;
+    collaborationUpdates: boolean;
+    importCompletion: boolean;
+    exportCompletion: boolean;
+    tutorialReminders: boolean;
+  };
+  passwordProtection: {
+    enabled: boolean;
+    strengthIndicator: boolean;
+    visibilityToggle: boolean;
+    accessAttemptFeedback: boolean;
+  };
+  backups: {
+    automatic: boolean;
+  };
+  advanced: {
+    developerMode: boolean;
+    debugMode: boolean;
+    experimentalFeatures: boolean;
+    performanceMode: "balanced" | "fast" | "quality";
+  };
+};
+
+export const defaultSettings: AppSettings = {
+  theme: "system",
+  language: "English",
+  interfaceScale: "comfortable",
+  fontSize: 16,
+  startupPage: "home",
+  autoSave: true,
+  uiDensity: "comfortable",
+  sidebarWidth: 390,
+  animations: true,
+  reducedMotion: false,
+  colorAccessibility: "default",
+  readingFont: "System",
+  readingFontSize: 18,
+  readingWidth: "medium",
+  readingTheme: "paper",
+  readingProgressTracking: true,
+  continueReading: "restart",
+  pageTransitions: true,
+  autoSaveInterval: 450,
+  editorFont: "System",
+  editorFontSize: 16,
+  spellCheck: true,
+  grammarCheck: false,
+  wordCount: true,
+  characterCount: true,
+  branchVisualization: "detailed",
+  writingFocusMode: false,
+  beginnerMode: true,
+  advancedMode: false,
+  onboardingStatus: "new",
+  completedTutorials: [],
+  notifications: {
+    storyUpdates: true,
+    collaborationUpdates: true,
+    importCompletion: true,
+    exportCompletion: true,
+    tutorialReminders: true,
+  },
+  passwordProtection: {
+    enabled: true,
+    strengthIndicator: true,
+    visibilityToggle: true,
+    accessAttemptFeedback: true,
+  },
+  backups: {
+    automatic: true,
+  },
+  advanced: {
+    developerMode: false,
+    debugMode: false,
+    experimentalFeatures: false,
+    performanceMode: "balanced",
+  },
+};
+
+function mergeSettings(saved?: Partial<AppSettings>): AppSettings {
+  return {
+    ...defaultSettings,
+    ...(saved || {}),
+    notifications: {
+      ...defaultSettings.notifications,
+      ...(saved?.notifications || {}),
+    },
+    passwordProtection: {
+      ...defaultSettings.passwordProtection,
+      ...(saved?.passwordProtection || {}),
+    },
+    backups: {
+      ...defaultSettings.backups,
+      ...(saved?.backups || {}),
+    },
+    advanced: {
+      ...defaultSettings.advanced,
+      ...(saved?.advanced || {}),
+    },
+    completedTutorials: saved?.completedTutorials || defaultSettings.completedTutorials,
+  };
+}
+
 function db() {
   return openDB(DATABASE, 3, {
     upgrade(database) {
@@ -33,6 +170,18 @@ export async function listStories() {
   return (await (await db()).getAll(STORE) as StoryDocument[]).sort((a, b) =>
     b.updatedAt.localeCompare(a.updatedAt),
   );
+}
+
+export function isEditableStory(story: StoryDocument) {
+  return story.access?.mode !== "view-only";
+}
+
+export function isSharedStory(story: StoryDocument) {
+  return !!story.access;
+}
+
+export async function listLibraryStories() {
+  return (await listStories()).filter(isEditableStory);
 }
 
 export async function getStory(id: string) {
@@ -112,4 +261,26 @@ export async function listStoryPasscodes() {
   return (await (await db()).getAll(PASSCODES) as Array<{ storyId: string; title: string; passcode: string; updatedAt: string }>).sort((a, b) =>
     a.title.localeCompare(b.title),
   );
+}
+
+export async function getSettings() {
+  const saved = await (await db()).get(SETTINGS, "app-settings") as { id: string; value: Partial<AppSettings> } | undefined;
+  return mergeSettings(saved?.value);
+}
+
+export async function saveSettings(settings: AppSettings) {
+  const merged = mergeSettings(settings);
+  await (await db()).put(SETTINGS, { id: "app-settings", value: merged });
+  return merged;
+}
+
+export async function updateSettings(patch: Partial<AppSettings>) {
+  const current = await getSettings();
+  return saveSettings(mergeSettings({ ...current, ...patch }));
+}
+
+export async function markTutorialComplete(tutorialId: string) {
+  const current = await getSettings();
+  const completedTutorials = Array.from(new Set([...current.completedTutorials, tutorialId]));
+  return saveSettings({ ...current, completedTutorials, currentTutorial: undefined });
 }

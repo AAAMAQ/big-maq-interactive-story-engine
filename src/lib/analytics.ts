@@ -35,7 +35,7 @@ export function analyzeStory(story: StoryDocument): StoryAnalytics {
   walk(story.startSceneId, 0);
   return {
     scenes: story.scenes.length,
-    choices: story.scenes.reduce((sum, scene) => sum + (scene.transition.type === "choices" ? scene.transition.choices.length : scene.transition.type === "continue" ? 1 : 0), 0),
+    choices: story.scenes.reduce((sum, scene) => sum + sceneTargets(scene).length, 0),
     endings: story.scenes.filter((scene) => scene.transition.type === "ending").length,
     bonusScenes: story.scenes.filter((scene) => scene.bonusText?.trim()).length,
     taggedScenes: story.scenes.filter((scene) => scene.tags?.length).length,
@@ -45,4 +45,3 @@ export function analyzeStory(story: StoryDocument): StoryAnalytics {
     mergeScenes: [...incoming.values()].filter((count) => count > 1).length,
   };
 }
-

@@ -5,6 +5,9 @@
   "title": "Pokémon Story Branching Engine Demo",
   "author": "Big MAQ Studio",
   "description": "Unofficial fan-made educational story converted from the original C++ branching-engine story.txt file.",
+  "variables": {
+    "friendship": 0
+  },
   "createdAt": "2026-06-02T18:52:53.696Z",
   "updatedAt": "2026-06-02T18:52:53.696Z",
   "startSceneId": "scene-0",
@@ -139,7 +142,8 @@
           {
             "id": "choice-4-2",
             "label": "Defend",
-            "targetSceneId": "scene-8"
+            "targetSceneId": "scene-8",
+            "effects": "friendship += 1"
           }
         ]
       }
@@ -319,6 +323,7 @@
       "title": "Scene 14",
       "body": "As Ash and Ashy walked deeper into the forest, a sudden rustle in the bushes caught his attention. His heart quickened with excitement — wild Pokémon were out here, real and unpredictable. From the underbrush, a small Pidgey fluttered into view, its feathers ruffling in the gentle breeze.\n\nAsh's eyes lit up. This was his chance to test his skills and bond with Ashy even more. He prepared to throw a Poké Ball, hoping to catch the Pidgey without causing a fight. Yet, as the ball soared through the air, the Pidgey flitted away just in time, evading capture with effortless grace.\n\nDetermined but undeterred, Ash tightened his grip on the ball, considering his next move carefully. The forest seemed to hold its breath, the tension rising as Ash decided whether to battle or try another tactic.",
       "bonusText": "Misty, having followed at a distance, called out softly, “Hey Ash, don’t get too eager! Sometimes Pokémon need a little patience — and respect.” She smiled warmly as she approached, her tone gentle but confident. “Want some tips on how to read their behavior? I’ve had plenty of practice.” Ash grinned, appreciating the offer. “I’d like that,” he said, feeling that this journey was becoming a little less daunting with a friend nearby.",
+      "bonusCondition": "friendship >= 1",
       "color": "#db2777",
       "position": {
         "x": 1120,

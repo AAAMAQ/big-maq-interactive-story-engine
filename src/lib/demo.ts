@@ -1,73 +1,578 @@
 import { StoryDocument } from "@/lib/story";
 
 export const demoStory: StoryDocument = {
-  format: "big-maq-story",
-  version: 1,
-  id: "demo-pallet-paths",
-  title: "Pallet Paths: A Trainer's First Choice",
-  author: "Big MAQ Studio",
-  description:
-    "An unofficial fan-made educational demo inspired by the original C++ branching engine.",
-  createdAt: "2026-06-01T00:00:00.000Z",
-  updatedAt: "2026-06-01T00:00:00.000Z",
-  startSceneId: "demo-start",
-  scenes: [
+  "format": "big-maq-story",
+  "version": 1,
+  "id": "pokemon-story-branching-engine-original",
+  "title": "Pallet Paths: A Trainer's First Choice (Pokémon Story Branching Engine Demo)",
+  "author": "Big MAQ Studio",
+  "description": "Unofficial fan-made educational story converted from the original C++ branching-engine story.txt file.",
+  "variables": {
+    "friendship": 0
+  },
+  "createdAt": "2026-06-02T18:52:53.696Z",
+  "updatedAt": "2026-06-02T18:52:53.696Z",
+  "startSceneId": "scene-0",
+  "scenes": [
     {
-      id: "demo-start",
-      title: "A New Morning",
-      body: "A young trainer wakes in Pallet Town on the morning of a first journey. Professor Oak is waiting at the lab. Do you rush ahead or take a moment to prepare?",
-      bonusText: "This scene demonstrates optional bonus text carried over from the C++ engine.",
-      color: "#2563eb",
-      position: { x: 80, y: 120 },
-      transition: {
-        type: "choices",
-        choices: [
-          { id: "demo-choice-rush", label: "Rush to the lab", targetSceneId: "demo-lab" },
-          { id: "demo-choice-prepare", label: "Pack carefully first", targetSceneId: "demo-pack" },
-        ],
+      "id": "scene-0",
+      "title": "Welcome",
+      "body": "Welcome to world of Pokemon where Humans and Pocket monstersv AKA Pokemon live together! this is the story ... ahm .. your story ! would you like to start?",
+      "color": "#2563eb",
+      "position": {
+        "x": 0,
+        "y": 0
       },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-0-1",
+            "label": "Yes Prof. Oak!",
+            "targetSceneId": "scene-1"
+          },
+          {
+            "id": "choice-0-2",
+            "label": "No I am too lazy to be a Poekemon Master, I prefer Beyblade !",
+            "targetSceneId": "scene-27"
+          }
+        ]
+      }
     },
     {
-      id: "demo-pack",
-      title: "Prepared",
-      body: "You pack a notebook, a snack, and a map. It takes a few extra minutes, but you feel ready for whatever the road brings.",
-      color: "#7c3aed",
-      position: { x: 80, y: 340 },
-      transition: { type: "continue", targetSceneId: "demo-lab" },
-    },
-    {
-      id: "demo-lab",
-      title: "Professor Oak's Lab",
-      body: "At the lab, Professor Oak offers an important lesson: a great trainer chooses a partner with patience and respect. Which path feels right?",
-      color: "#ea580c",
-      position: { x: 390, y: 210 },
-      transition: {
-        type: "choices",
-        choices: [
-          { id: "demo-choice-bold", label: "Choose the bold path", targetSceneId: "demo-road" },
-          { id: "demo-choice-think", label: "Ask one more question", targetSceneId: "demo-advice" },
-        ],
+      "id": "scene-1",
+      "title": "Scene 1",
+      "body": "The moon hung high over the quiet town of Pallet, casting a silver glow across the rooftops. In his small bedroom, Ash Ketchum sat cross-legged on the floor, surrounded by stacks of Pokémon magazines, action figures, and his trusty Poké Ball-themed clock. Tomorrow, his life would change forever—he would finally become a Pokémon Trainer. His eyes sparkled with excitement, but sleep seemed impossible. How could anyone sleep the night before they met their first Pokémon?\n\nAsh’s television flickered in the dark room. A late-night broadcast of a Pokémon League match filled the screen. The electrifying battle between a powerful Gengar and a fierce Nidorino had him mesmerized. Commentators shouted excitedly as attacks flew. “Gengar uses Hypnosis! Nidorino’s down!” Ash mimicked each move, punching the air with exaggerated enthusiasm. “That’ll be me soon,” he whispered. “I’ll be on TV, a Champion—no, a Master!”\n\nDelirious with excitement, Ash clutched his pillow. His mind raced through fantasies—he’d catch them all, defeat the Elite Four, and even challenge the mysterious trainer who once appeared riding a Charizard through the Indigo Plateau. But amid the dreams, a knot of nervous energy tightened in his stomach. What if all the Pokémon were already taken when he arrived? What if Professor Oak didn’t think he was ready?\n\nHe shook the doubt away. No. Tomorrow, everything begins. His journey, his destiny, his dream to be the very best—like no one ever was. He had two choices now: keep watching the battle and let the adrenaline fuel him till dawn… or turn off the TV and rest for the long road ahead.",
+      "color": "#7c3aed",
+      "position": {
+        "x": 280,
+        "y": 0
       },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-1-1",
+            "label": "Stay up late watching battles",
+            "targetSceneId": "scene-2"
+          },
+          {
+            "id": "choice-1-2",
+            "label": "Go to sleep early, prepared",
+            "targetSceneId": "scene-3"
+          }
+        ]
+      }
     },
     {
-      id: "demo-advice",
-      title: "A Useful Lesson",
-      body: "Oak smiles and explains that curiosity is a strength. Good questions help you understand your choices.",
-      color: "#0891b2",
-      position: { x: 690, y: 360 },
-      transition: { type: "continue", targetSceneId: "demo-road" },
+      "id": "scene-2",
+      "title": "Scene 2",
+      "body": "Ash couldn’t pull himself away from the screen. The energy of the League battle had seeped into his bones, and his heart beat in rhythm with the flashing attacks. Another match came on—this time between a Blastoise and an Arcanine, roaring and clashing in a stadium that looked larger than life. Ash imagined himself commanding Blastoise, issuing clever commands, reading the opponent’s mind like a chess grandmaster. He was going to be great. He just had to be.\n\nBut time, as it often does, slipped away without mercy. The glow from the television dimmed as the broadcast ended and the screen fizzled into static. Outside, the chirping of nocturnal Pokémon quieted. Ash yawned and rubbed his eyes, only now realizing how heavy they felt. “Just a quick nap,” he mumbled, crawling into bed. His alarm clock read 3:42 AM. As soon as his head hit the pillow, he was out like a light.\n\nA blinding sunbeam pierced through his window the next morning. Ash groaned and rolled over. The clock blinked red—9:07 AM. His eyes shot open. “Nine o’clock?!” he shouted, throwing off his blanket in a panic. “No, no, no! I’m late!” He stumbled around his room, pulling on his jeans backward, grabbing his cap, and practically tripping over his own enthusiasm. The scene was chaotic—papers flying, pillows tossed, a crash as he stepped into a toy Poké Ball.\n\nAsh burst out the front door and sprinted through the streets of Pallet Town, his heart thudding harder with every step. When he reached Professor Oak’s lab, the large metal doors creaked open ominously. Inside, Gary Oak stood smugly, holding a Poké Ball in one hand and grinning ear to ear. “Tch. Took you long enough,” Gary smirked. “I already picked Charmander. Too slow, Ashy-boy.” Professor Oak sighed and looked at Ash sympathetically. “You’re late. But I do have two Pokémon left… Bulbasaur and Squirtle. Or…” Oak paused. “You can refuse for now. But you might regret waiting.”\n\nAsh gulped. His choices had already been narrowed. Charmander was gone. He was left to choose between two very different paths—or none at all.",
+      "color": "#db2777",
+      "position": {
+        "x": 560,
+        "y": 0
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-2-1",
+            "label": "Pick Bulbasaur",
+            "targetSceneId": "scene-4"
+          },
+          {
+            "id": "choice-2-2",
+            "label": "Pick Squirtle",
+            "targetSceneId": "scene-5"
+          },
+          {
+            "id": "choice-2-3",
+            "label": "Refuse to pick now",
+            "targetSceneId": "scene-6"
+          }
+        ]
+      }
     },
     {
-      id: "demo-road",
-      title: "The Road Ahead",
-      body: "With a new partner beside you, the road stretches toward the horizon. Every choice will shape the adventure.",
-      color: "#16a34a",
-      position: { x: 760, y: 160 },
-      transition: { type: "ending" },
+      "id": "scene-3",
+      "title": "Scene 3",
+      "body": "Ash stared at the ceiling, the shadows of his room dancing with the faint glow of the moon. His excitement buzzed in his chest like a trapped Pidgey, but he reminded himself of his goal: to be the best. And to do that, he had to start strong. “I’ll get there first,” he whispered to himself, turning off the TV mid-battle, “and I’ll choose the best Pokémon before Gary even shows up.” He crawled into bed, forcing his eyes closed, and slowly drifted into a quiet, hopeful sleep.\n\nThe next morning, Ash shot up the moment his alarm buzzed at 6:00 AM sharp. Sunlight had only just begun to break over Pallet Town. He washed up quickly, threw on his outfit, adjusted his hat just right, and dashed out the door, his heart soaring. “This is it!” he said aloud, his sneakers pounding against the dirt path as he ran toward Professor Oak’s lab.\n\nAsh arrived at the lab, panting slightly, and flung the doors open triumphantly. “Professor Oak! I’m here to choose my Pokémon!” he shouted with a big grin. Professor Oak looked up from his clipboard, surprised but amused. “Well, good morning, Ash. You’re early.” Ash beamed, eyes scanning the Poké Balls on the table. “So I get to pick first, right?” he asked, reaching eagerly toward the row of starters.\n\nBut Oak raised a hand, and Ash froze. “Not quite,” the professor said, with a sheepish smile. “Gary is my grandson. I promised him first choice — and he came by even earlier than you.” As if on cue, a familiar voice rang from the side room. “That’s right, Ashy-boy,” Gary said, stepping into view and tossing a Poké Ball in the air. “I picked Charmander. Fire-types are the coolest anyway.”\n\nAsh’s heart sank for a moment, but he quickly refocused. Two Poké Balls remained on the table: one containing Bulbasaur, and the other, Squirtle. “So, what will it be?” Professor Oak asked, looking at him expectantly. Ash took a deep breath. The path ahead was still his to shape.",
+      "color": "#ea580c",
+      "position": {
+        "x": 840,
+        "y": 0
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-3-1",
+            "label": "Pick Bulbasaur",
+            "targetSceneId": "scene-4"
+          },
+          {
+            "id": "choice-3-2",
+            "label": "Pick Squirtle",
+            "targetSceneId": "scene-5"
+          },
+          {
+            "id": "choice-3-3",
+            "label": "Refuse to pick now",
+            "targetSceneId": "scene-6"
+          }
+        ]
+      }
     },
-  ],
+    {
+      "id": "scene-4",
+      "title": "Scene 4",
+      "body": "(Ash picks Bulbasaur. Gary challenges him with Charmander.)\n\nAsh stood still, eyes shifting between the two remaining Poké Balls. He could feel the heat of Gary’s smug grin behind him, and Oak’s patient gaze ahead. The pressure built, but Ash’s fingers reached instinctively toward one ball — the one marked with a small green leaf. “I choose… Bulbasaur,” Ash declared with a determined nod. He pressed the button, and the ball popped open, releasing a flash of light that took shape on the lab floor. A green, quadruped Pokémon with a plant bulb on its back emerged, blinking up at him with wide, calm eyes.\n\n“Bulba!” it chirped, tail swaying gently. The creature looked sturdy and serene — a stark contrast to Ash’s flaring nerves. Ash crouched down, offering his hand. “Hi, Bulbasaur. I’m Ash. Let’s become the best team ever!” Bulbasaur sniffed his hand and nuzzled into it with a soft purr. Professor Oak smiled approvingly. “Excellent choice. Bulbasaur is known for its loyalty and resilience. Take good care of it, Ash.”\n\nBut before the warmth of that moment could settle, Gary stepped forward, twirling his Poké Ball confidently. “So, you went with the walking salad, huh?” he scoffed. “Let’s put your so-called ‘team’ to the test!” He tossed the ball, and in a blaze of red light, Charmander appeared. Its tail flame flickered bright with excitement, and it let out a confident growl. Ash swallowed nervously but stood his ground. He looked at Bulbasaur, who gave a determined nod.\n\n“Fine,” Ash said, fists clenched. “Let’s battle, right here!” Professor Oak stepped back with a raised brow but didn’t stop them — this was the beginning of every trainer’s journey. Ash and Bulbasaur squared up against Gary and Charmander in the middle of the lab. The air sizzled with anticipation. This was Ash’s first real test — not just as a Pokémon trainer, but as someone who believed in heart over hype.",
+      "color": "#16a34a",
+      "position": {
+        "x": 1120,
+        "y": 0
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-4-1",
+            "label": "Use Special Attack",
+            "targetSceneId": "scene-7"
+          },
+          {
+            "id": "choice-4-2",
+            "label": "Defend",
+            "targetSceneId": "scene-8",
+            "effects": "friendship += 1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scene-5",
+      "title": "Scene 5",
+      "body": "(Ash picks Squirtle. Gary challenges him with Charmander.)\n\nAsh stepped forward toward the last two Poké Balls on the table. His heart pounded in his chest, but his mind was clear now. He remembered seeing a powerful Squirtle in one of the Indigo League battles on TV — fast, clever, and capable of launching jets of water with precision. Without hesitation, Ash grabbed the Poké Ball marked with a small water droplet and pressed the button. A beam of red light shot out, hitting the floor. It swirled into shape, revealing a small, blue turtle Pokémon.\n\n“Squirtle!” it exclaimed confidently, eyes shining with mischief and excitement. It spun its tail once and gave a playful salute. Ash couldn’t help but grin. “Hey there, Squirtle! I’m Ash. Let’s become champions together!” The turtle Pokémon bounced slightly in place and nodded, clearly pleased to be chosen. Professor Oak chuckled warmly. “A fine pick. Squirtle can be tricky, but with the right bond, it’ll be a strong companion.”\n\nBefore the moment could linger, Gary rolled his eyes and stepped up. “Hmph. Took you long enough, loser.” He tossed his Poké Ball into the air. “Let me show you what a real trainer looks like!” With a blaze of red, Charmander burst onto the floor, tail flaming bright. It snarled at Squirtle. The fire on its tail flared higher — a visual sign of its battle spirit. Squirtle stepped forward, ready, eyes narrowing. The tension in the room spiked.\n\nAsh hesitated. He hadn’t even learned Squirtle’s moves yet — but there was no turning back. “Alright, Squirtle! Let’s show them what we’ve got!” Gary smirked, confident as always. “Charmander, let’s end this fast!” Professor Oak folded his arms and stood back silently. The air inside the lab buzzed with energy. This wasn’t just a battle between two Pokémon — it was a battle between old rivalry and new hope, between doubt and destiny.",
+      "color": "#0891b2",
+      "position": {
+        "x": 0,
+        "y": 180
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-5-1",
+            "label": "Use Water Gun - Super Affective!",
+            "targetSceneId": "scene-7"
+          },
+          {
+            "id": "choice-5-2",
+            "label": "Use Tackel - Safe Option!",
+            "targetSceneId": "scene-8"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scene-6",
+      "title": "Scene 6",
+      "body": "(Ash refuses to pick a starter. Later, watching Gary’s victory motivates him. He returns and gets Pikachu.)\n\nAsh looked down at the two remaining Poké Balls on Professor Oak’s table. Bulbasaur and Squirtle — both strong in their own right. But something in his heart hesitated. Maybe it was stubborn pride… or maybe it was disappointment that Charmander — the one he’d dreamed of — was already gone. His hands clenched into fists. The weight of the decision pressed on him, but instead of reaching for either ball, he shook his head and stepped back.\n\n“I… I can’t,” Ash muttered, voice barely above a whisper. “I don’t want to just pick what’s left. It doesn’t feel right.”\nGary scoffed from across the room. “Figures. You don’t even have the guts to choose.”\nProfessor Oak furrowed his brows but remained calm. “Ash… are you sure? You’ll be without a partner.”\nAsh swallowed hard. “Yeah. I need to think.”\n\nHe left the lab in silence, the automatic doors sliding closed behind him. The Kanto sun beat down gently as Ash wandered the streets of Pallet Town, unsure of his next move. Kids passed him by, excitedly talking about their new Pokémon. He sat on a bench outside the Pokémon Center, watching the TV through the glass. A live battle was being broadcast — and there, in full view, was Gary Oak commanding Charmander with smug confidence.\n\n“Charmander, Ember! Let’s finish this!”\nThe flames blasted across the field, knocking out Brock’s Geodude. The announcer roared, “What a stunning upset! Gary Oak wins his first Gym badge!”\nAsh leaned forward, stunned. The image of Gary raising his arm in victory burned into his mind. That could’ve been me, he thought. That should have been me.\n\nAsh returned to the lab, head held higher this time, even if his heart still felt heavy. Professor Oak stood quietly, as though he had been expecting Ash. “Changed your mind?” the professor asked softly. Ash nodded. “I don’t care what’s left. I just want to start. I need to start.”\nOak gave a small smile and turned toward a side cabinet. “Well, I was holding this one back… for good reason. It’s a bit different from the others.”\nHe opened the drawer and pulled out a Poké Ball with a jagged lightning bolt sticker. “This is Pikachu. It’s… spirited.”\n\nAsh took the ball with both hands. There was no warmth from it. No instant bond. Just static. But even so, he gripped it tightly. “Alright, Pikachu… let’s see what you’re made of.”",
+      "color": "#2563eb",
+      "position": {
+        "x": 280,
+        "y": 180
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-6-1",
+            "label": "Accept Pikachu",
+            "targetSceneId": "scene-9"
+          },
+          {
+            "id": "choice-6-2",
+            "label": "Refuse again",
+            "targetSceneId": "scene-10"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scene-7",
+      "title": "Scene 7",
+      "body": "(Ash defeats Gary in their first-ever Pokémon battle and sets out confidently on his journey. Names his starter as Ashy)\n\nThe air was thick with anticipation as Ash and Gary faced off just outside Professor Oak’s lab. A small crowd had gathered—friends, neighbors, and even Ash’s mother, Delia Ketchum, who stood quietly, her hands nervously clasped. Ash’s heart thumped fiercely in his chest, but he focused on the Pokémon at his side. Ash had decided to give his partner a special nickname: Ashy. It was a way to build their bond, a promise that they were in this together.\n\nGary smirked, brimming with confidence. “Go, Charmander!” The fiery lizard sprang from its Poké Ball, tail ablaze, eyes sharp with determination.\nAsh took a deep breath, then threw his Poké Ball into the air. A burst of green or blue light appeared, and out stepped Ashy, standing firm and ready. The little Pokémon met Charmander’s fiery gaze without flinching.\n\nThe battle erupted in a flurry of action. Gary shouted, “Charmander, Scratch!”\nAsh quickly responded, “Ashy, dodge and counterattack!” Whether Ashy lashed out with a Vine Whip or a powerful Water Gun, each move was precise and filled with trust. The crowd watched in awe as the two Pokémon clashed—fire against water or fire against vines—but Ashy’s determination never wavered.\n\nAsh felt a surge of confidence. He knew this was more than a battle; it was the start of a lifelong partnership. When Ashy landed the final blow, sending Charmander sprawling, the crowd erupted into cheers. Gary’s confident facade cracked as he recalled Charmander into its Poké Ball with a reluctant grunt.\n\nProfessor Oak stepped forward, smiling warmly. “Ash Ketchum, you’ve won your first battle. This is the first step on your path to becoming a Pokémon Master.”\nAsh knelt down beside Ashy, ruffling its head gently. “You’re amazing, Ashy. Let’s make this journey unforgettable.”\n\nWith a backpack on his shoulders, his loyal Ashy by his side, and hope burning bright in his heart, Ash stepped out of Pallet Town toward the adventure that awaited.",
+      "color": "#7c3aed",
+      "position": {
+        "x": 560,
+        "y": 180
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-11"
+      }
+    },
+    {
+      "id": "scene-8",
+      "title": "Scene 8",
+      "body": "(Ash loses the battle to Gary but gains valuable experience and starts his journey with determination.)\n\nThe battle between Ash and Gary was intense from the very first move. Charmander’s flames flickered with fierce energy, while Ash’s Pokémon— named Ashy—fought with everything it had. But despite Ash’s best efforts, Gary’s experience and confidence tipped the scales.\n\nA swift Ember attack landed squarely, and Ashy faltered. Ash’s heart sank as he saw his partner stumble. The crowd watched in tense silence as Gary’s Charmander pressed the advantage relentlessly. Finally, with a final, powerful Scratch, Charmander knocked Ashy down.\n\nAsh’s breath hitched. He felt the sting of defeat sharp and immediate, but he refused to let it break him. Gary smirked, triumphant, “Better luck next time, rookie.”\n\nProfessor Oak stepped forward, his gaze kind but serious. “Ash, every Trainer faces defeat. It’s not the end—it’s the beginning of learning. Use this as fuel to grow stronger.”\n\nAsh lowered his head but nodded slowly, swallowing his pride. His Pokémon, though weary, looked up at him with loyal eyes, silently encouraging him to keep going.\n\nRising to his feet, Ash steadied himself. “Alright, Ashy. We’ll train harder. We’ll get stronger.”\n\nWith a renewed sense of purpose, Ash adjusted his backpack and took the first step out of Pallet Town. The road ahead would be long and challenging, but Ash’s resolve had never been firmer.",
+      "color": "#db2777",
+      "position": {
+        "x": 840,
+        "y": 180
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-11"
+      }
+    },
+    {
+      "id": "scene-9",
+      "title": "Scene 9",
+      "body": "(Ash accepts Pikachu, a unique and unruly Pokémon, and begins learning what it truly means to be a Trainer.)\n\n \n\nAsh hesitated, then finally accepted Professor Oak’s offer. From the Poké Ball, a small yellow Pokémon with sharp eyes and rosy cheeks appeared—Pikachu. Unlike the calm and eager starters, Pikachu looked annoyed, even rebellious. Without warning, it jolted Ash with a sharp electric shock, making him stumble back in surprise.\n\nProfessor Oak chuckled nervously. “I warned you, Ash. Pikachu isn’t trained and can be difficult.” Ash looked at Pikachu, who twitched its tail and glared at him with a stubborn expression.\n\nDetermined not to give up, Ash crouched down, extending a hand. “I’m not here to boss you around. We’ll be partners. Let’s learn together.” But Pikachu turned away, hopping onto a nearby rock and watching Ash with wary eyes.\n\nDays passed with Ash trying everything—offering food, coaxing with soft words, even trying to leash Pikachu. Still, Pikachu refused to listen, often shocking Ash out of frustration or excitement. The bond Ash had imagined with his Pokémon wasn’t instant. It was fragile and needed patience.\n\nYet beneath the grumbles and sparks, Ash sensed something special. Pikachu was strong-willed, independent—and perhaps the perfect companion to grow alongside. Ash smiled and whispered, “We’ll make it work, Ashy. Just you wait.”",
+      "color": "#ea580c",
+      "position": {
+        "x": 1120,
+        "y": 180
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-9-1",
+            "label": "Give up and leave",
+            "targetSceneId": "scene-10"
+          },
+          {
+            "id": "choice-9-2",
+            "label": "Persist with Pikachu and keep trying",
+            "targetSceneId": "scene-11"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scene-10",
+      "title": "Scene 10",
+      "body": "(Ash refuses all Pokémon, feeling lost and unsure if the journey is meant for him.)\n\n \n\nAsh turned away from Professor Oak’s lab, empty-handed and heavy-hearted. The bright sunlight of Pallet Town seemed colder somehow, and the sounds of laughter from nearby Trainers felt distant and hollow. He wandered through the quiet streets, watching other kids proudly walking with their Pokémon partners.\n\nSitting under a sprawling oak tree, Ash stared at the ground, his dreams suddenly feeling far away. What was the point of this journey if he couldn’t even choose a partner? Doubt gnawed at him, threatening to erode the excitement that had burned so brightly just hours before.\n\nAs he sat, the sound of a television broadcast drifted from a nearby house. Curious, Ash approached and saw Gary on the screen, confidently battling Brock, the Pewter City Gym Leader. Gary’s Charizard roared in victory, and cheers echoed from the TV audience.\n\nSomething inside Ash stirred—a flicker of hope and determination. Maybe this wasn’t the end after all. Gathering his resolve, Ash turned back toward Professor Oak’s lab. Perhaps there was still a chance, even if it meant choosing a different path.",
+      "color": "#16a34a",
+      "position": {
+        "x": 0,
+        "y": 360
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-27"
+      }
+    },
+    {
+      "id": "scene-11",
+      "title": "Scene 11",
+      "body": "With his backpack secured and a firm grip on his Poké Ball, Ash stepped out beyond the familiar streets of Pallet Town. By his side was Ashy, his trusted Pokémon partner, who moved with quiet determination and fierce loyalty. Together, they faced the vast world ahead—unknown, challenging, and full of promise.\n\nThe warm morning sun bathed the landscape in golden light as Ash took his first steps toward adventure. Townspeople cheered and waved, offering encouragement. Ash felt the weight of their hopes but also the spark of his own dreams burning brighter than ever.\n\nAs they traveled along a winding path near a sparkling river, Ash spotted a figure approaching swiftly on a bicycle. It was a girl, confident and focused, her fiery hair catching the sunlight as she pedaled closer. She slowed, her eyes meeting Ash's with curiosity.\n\nAshy perked up, sensing the new presence, while Ash prepared to greet the unexpected traveler. This meeting could change the course of his journey in ways he hadn't yet imagined.",
+      "color": "#0891b2",
+      "position": {
+        "x": 280,
+        "y": 360
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-11-1",
+            "label": "Greet the girl politely",
+            "targetSceneId": "scene-12"
+          },
+          {
+            "id": "choice-11-2",
+            "label": "Ignore her and continue on your path",
+            "targetSceneId": "scene-13"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scene-12",
+      "title": "Scene 12",
+      "body": "Ash smiled warmly as the girl slowed her bike to a stop beside him. Her eyes sparkled with a mix of curiosity and caution, and her fiery red hair whipped gently in the breeze. She introduced herself with a confident tone, \"Hey, I'm Misty. You look like you've just started your journey.\"\n\nAsh nodded, feeling a mix of excitement and nervousness. \"I'm Ash, and this is Ashy,\" he said, gesturing to his loyal Pokémon. \"We're just getting started too.\"\n\nMisty's lips curled into a small smile. \"Well, if you ever need help, I'm around. It's not always easy out here.\" She pulled a small potion from her bag and handed it to Ash. \"Here, this might come in handy.\"\n\nAsh accepted the potion gratefully. The kindness and encouragement from this unexpected encounter kindled a hopeful spark within him. Maybe this journey wouldn't be so lonely after all.\n\nAs Ash prepared to continue, he noticed Misty mounting her bike again, a hint of determination in her eyes. Whether as a friend or rival, Ash knew this meeting was the start of something important.",
+      "color": "#2563eb",
+      "position": {
+        "x": 560,
+        "y": 360
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-14"
+      }
+    },
+    {
+      "id": "scene-13",
+      "title": "Scene 13",
+      "body": "Ash nodded politely as the girl sped away on her bike, choosing to focus on the road ahead. The wide expanse of the world stretched before him, filled with mystery and challenge. With Ashy faithfully by his side, Ash knew he had what it took to face whatever came next, even if he walked this path alone.\n\nThe sounds of nature surrounded him — the rustling of leaves, the distant calls of wild Pokémon, and the soft crunch of gravel beneath his boots. Each step felt heavier, but with each step, his resolve hardened. He was determined to prove himself, no matter the obstacles.\n\nThough the companionship of others might be comforting, Ash found strength in solitude. This journey was his, and only he could forge its path. The quiet moments allowed him to think about the battles ahead and the dreams he held tight within his heart.\n\nAhead, the forest darkened slightly, shadows growing longer. Ash tightened his grip on his Poké Ball and stepped forward, ready for the wild encounters that awaited. The adventure was far from over — in fact, it was just beginning.",
+      "color": "#7c3aed",
+      "position": {
+        "x": 840,
+        "y": 360
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-14"
+      }
+    },
+    {
+      "id": "scene-14",
+      "title": "Scene 14",
+      "body": "As Ash and Ashy walked deeper into the forest, a sudden rustle in the bushes caught his attention. His heart quickened with excitement — wild Pokémon were out here, real and unpredictable. From the underbrush, a small Pidgey fluttered into view, its feathers ruffling in the gentle breeze.\n\nAsh's eyes lit up. This was his chance to test his skills and bond with Ashy even more. He prepared to throw a Poké Ball, hoping to catch the Pidgey without causing a fight. Yet, as the ball soared through the air, the Pidgey flitted away just in time, evading capture with effortless grace.\n\nDetermined but undeterred, Ash tightened his grip on the ball, considering his next move carefully. The forest seemed to hold its breath, the tension rising as Ash decided whether to battle or try another tactic.",
+      "bonusText": "Misty, having followed at a distance, called out softly, “Hey Ash, don’t get too eager! Sometimes Pokémon need a little patience — and respect.” She smiled warmly as she approached, her tone gentle but confident. “Want some tips on how to read their behavior? I’ve had plenty of practice.” Ash grinned, appreciating the offer. “I’d like that,” he said, feeling that this journey was becoming a little less daunting with a friend nearby.",
+      "bonusCondition": "friendship >= 1",
+      "color": "#db2777",
+      "position": {
+        "x": 1120,
+        "y": 360
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-14-1",
+            "label": "Try catching",
+            "targetSceneId": "scene-15"
+          },
+          {
+            "id": "choice-14-2",
+            "label": "Battle",
+            "targetSceneId": "scene-16"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scene-15",
+      "title": "Scene 15",
+      "body": "Ash's heart sank as the Poké Ball hit the ground empty. The Pidgey darted away with ease, its quick wings beating a retreat through the trees. For a moment, Ash stood frozen, disbelief washing over him. Catching a Pokémon wasn't as simple as he had imagined — it required patience, skill, and timing.\n\nHe glanced at Ashy, who gave an encouraging grunt, as if to say, \"Don't give up.\" Reinvigorated by his partner's loyalty, Ash took a deep breath and reached for another Poké Ball. But just as he prepared to make a second attempt, an angry cry pierced the air.\n\nSuddenly, a wild Spearow swooped down, its beady eyes fixed on Ash and Ashy. It pecked at Ash's arm, sending a sharp sting through him. The lone bird called to its flock, and moments later, a swarm of Spearow descended, their cries filling the forest with chaos.\nAsh’s peaceful first day on the journey had turned into a desperate scramble for survival. With Ashy at his side, he needed to decide quickly: fight or flee.",
+      "color": "#ea580c",
+      "position": {
+        "x": 0,
+        "y": 540
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-15-1",
+            "label": "Run with Ashy",
+            "targetSceneId": "scene-17"
+          },
+          {
+            "id": "choice-15-2",
+            "label": "Fight back bravely",
+            "targetSceneId": "scene-18"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scene-16",
+      "title": "Scene 16",
+      "body": "Ash's eyes narrowed with determination as the flock of Spearow closed in. He knew running wasn't the only option — sometimes, you had to stand your ground. \"Ashy, use your strongest move! Show them what we've got!\" he shouted, his voice steady despite the pounding of his heart.\n\nAshy responded immediately, stepping forward with fierce resolve. The battle was intense — feathers flew and cries pierced the air as Ashy dodged strikes and counterattacked with precise moves. Ash felt the bond between them deepen with every exchange; his commands flowed naturally, and Ashy anticipated his intentions without hesitation.\n\nThough the wild Pokémon were relentless, Ashy's courage never wavered. With a final, powerful strike, the flock scattered, retreating back into the forest with ruffled feathers and defeated cries. Ash breathed a sigh of relief, patting Ashy's head affectionately. \"That was amazing, Ashy! We make a great team.\"\nThe adrenaline began to fade, replaced by a warm sense of accomplishment. Ash looked up, spotting a familiar figure approaching through the trees.",
+      "bonusText": "Misty jogged over, a small smile on her lips. “You really held your own back there. I’m proud of you, Ash,” she said softly, her eyes shining with genuine admiration. “Sometimes all it takes is heart and never giving up.” Ash’s face lit up in the background, his smile wide and grateful. Her encouragement meant more than words could say, reminding him he wasn’t alone on this journey after all.",
+      "color": "#16a34a",
+      "position": {
+        "x": 280,
+        "y": 540
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-16-1",
+            "label": "Use your attacks",
+            "targetSceneId": "scene-19"
+          },
+          {
+            "id": "choice-16-2",
+            "label": "Dont know what to do",
+            "targetSceneId": "scene-20"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scene-17",
+      "title": "Scene 17",
+      "body": "The piercing cries of the Spearow grew louder as Ash's heart pounded in his chest. Without hesitation, he grabbed Ashy's Poké Ball and dashed into the thick underbrush, weaving between trees and leaping over roots. The swarm of Spearow chased fiercely, their sharp beaks and claws snapping dangerously close.\n\nAsh could feel the adrenaline surge through his veins, but he refused to give in to fear. Protecting Ashy was his top priority. Suddenly, his foot caught on a hidden root, and he tumbled down a small embankment, rolling until he landed hard on the forest floor. Dazed but determined, he shielded Ashy with his body, arms wrapped tightly around his trusted Pokémon.\n\nThe flock hovered overhead, hesitant now as Ash stood firm, refusing to let them get to Ashy. His breath came in ragged gasps, but he met the challenge with grit and courage. \"We'll get through this together, Ashy. I promise,\" he whispered, feeling the unbreakable bond between them grow even stronger.\n\nAs the Spearow finally withdrew, their cries fading into the distance, Ash slowly rose, helping Ashy to his feet. Despite the chaos, a spark of hope flickered within him. This was just the beginning of a long, difficult journey — but one he was ready to face.",
+      "color": "#0891b2",
+      "position": {
+        "x": 560,
+        "y": 540
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-21"
+      }
+    },
+    {
+      "id": "scene-18",
+      "title": "Scene 18",
+      "body": "Ash gritted his teeth as the swarm of Spearow closed in, their wings slicing through the air like blades. Fear clutched at him, but he stood his ground. \"Ashy, we're not running. We can do this. Get ready!\"\n\nAshy stepped forward, muscles tensed and eyes focused. As the first Spearow dove, Ashy lashed out with a sharp counterattack, knocking it back midair. More came — furious and fast — but Ash wasn't just yelling commands randomly. He watched, timed, and trusted. \"Dodge left, then strike!\" he called, and Ashy moved like they were thinking with one mind.\n\nThe battle was chaotic — flapping wings, slashing talons, and flying dust surrounded them — but Ash never gave up. He took a hit protecting Ashy, a cut across his arm from a Spearow's beak, but he didn't flinch. He focused only on Ashy, on standing strong, and on proving that no matter how new he was, he had what it took to be a real Pokémon Trainer.\n\nFinally, the tide turned. Ashy’s determination and precision wore the Spearow down. One by one, they retreated, screeching in frustration. When the last bird vanished beyond the tree line, Ash sank to his knees, exhausted and bruised — but victorious.\n\nHe looked at Ashy, who nodded firmly. “Thanks, partner,” Ash said breathlessly, a wide grin forming on his face. “We really did it.”",
+      "bonusText": "Misty came running from behind a nearby tree, having witnessed the whole fight. Her eyes were wide, but a smile tugged at the corners of her lips. “Ash… that was incredible,” she said, stepping closer. “I didn’t think you had it in you—no offense. You’re brand new to this, and you fought like a seasoned Trainer.” Ash laughed nervously, rubbing the back of his neck. “I guess when you care about your Pokémon, you fight with your heart, not just skill.” Misty nodded. “Well, you’ve definitely earned some respect from me. Maybe you’re not such a rookie after all.” Ash glanced away bashfully, hiding a grin. It felt good to be acknowledged — not just for winning, but for fighting the right way.",
+      "color": "#2563eb",
+      "position": {
+        "x": 840,
+        "y": 540
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-21"
+      }
+    },
+    {
+      "id": "scene-19",
+      "title": "Scene 19",
+      "body": "The forest had quieted now, but Ash's heart was still thundering from the battle. Every ache in his body reminded him of what he'd just been through — and what he had overcome. Ashy walked beside him, calm but alert, as if sensing the transformation in Ash's spirit.\n\n\"I can't believe we did that,\" Ash murmured aloud, a small smile creeping onto his face. It wasn't just that he survived the Spearow attack — it was the way he fought. He hadn't panicked or hesitated. He'd trusted Ashy, and in return, Ashy had trusted him right back.\n\nAs the sunlight broke through the canopy, Ash found himself walking taller. The fear of being a beginner, of not being ready, was beginning to fade. He had a long way to go, but now, he believed he could get there. His dream of becoming a Pokémon Master no longer felt far-fetched — it felt like something he had already taken the first real step toward.\n\nEach step forward now was powered by something more than hope — it was fueled by belief. He had won a battle, proven himself, and felt the bond between Trainer and Pokémon strengthen. The path ahead was uncertain, but for the first time, Ash was walking it with real confidence.",
+      "bonusText": "Misty had been walking beside Ash the whole time, observing him quietly. After the Spearow incident, she hadn’t said much — not because she wasn’t impressed, but because she was still trying to take it all in. Now, as Ash beamed with quiet pride, she finally spoke.“I saw how you stood your ground back there,” Misty said softly. “You didn’t run, even when you could have. That’s not something most new Trainers can pull off.” Ash glanced at her, surprised. “You think so?” She nodded. “Definitely. Most people in your position would’ve panicked. But not you. You protected your Pokémon like a real partner. That’s rare — and it’s special.” Ash’s smile grew wider, and although he didn’t say it aloud, he was grateful for her words. Her recognition felt like a badge of honor. It wasn’t just about winning now — it was about growing. And maybe, just maybe, he wasn’t walking this road alone anymore.",
+      "color": "#7c3aed",
+      "position": {
+        "x": 1120,
+        "y": 540
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-21"
+      }
+    },
+    {
+      "id": "scene-20",
+      "title": "Scene 20",
+      "body": "The sky had turned overcast, as if echoing the storm inside Ash’s heart. The battle he just lost still played over and over in his head — every command he misjudged, every opening he didn’t see. Ashy stood by him, silent and calm, but even Ash could sense the Pokémon’s concern.\n\nAsh had thought he was getting better, that his earlier victories meant something. But now, all that momentum felt like it had slipped through his fingers in one sharp defeat. His shoulders slumped beneath the weight of disappointment, and for a while, the path ahead seemed longer and lonelier than before.\n\n“I thought I was ready,” Ash muttered. “I really believed I was getting stronger…”\n\nAshy let out a soft grunt and nudged his leg — a quiet but powerful reminder that he wasn’t alone, and that this was only one loss, not the end. Still, Ash couldn’t help but feel like he’d let someone down. Maybe himself. Maybe Ashy. Maybe both.\n\nBut even as those doubts whispered, Ash kept walking. Step by step. No glory, no cheering crowd this time — just the road and the will to stay on it. He didn’t know what was waiting ahead, but he knew giving up wasn’t an option. Not now. Not after everything.",
+      "bonusText": "Misty walked beside Ash quietly, matching his pace but not interrupting his thoughts. She had seen the battle, and more importantly, she had seen Ash afterward. She knew this feeling — the sting of loss, the crushing weight of expectations. After a while, she finally spoke, her voice soft but confident. “It’s all part of the game, Ash. We win, we lose. But the only Trainers who go anywhere are the ones who don’t quit.” Ash looked at her, a bit surprised. Misty rarely got serious — at least, not in this calm, understanding way. “You really think I’ll bounce back?” She smiled. “Of course. You’ve got heart — and you’ve got Ashy. That matters more than a win or loss.” Ash felt a warmth in his chest. She didn’t have to walk beside him. But she was. And that made all the difference. “Thanks, Misty,” he said quietly. “I’m glad you’re here.” And with her by his side, Ash found the strength to keep going — not because he felt strong, but because someone believed he could be.",
+      "color": "#db2777",
+      "position": {
+        "x": 0,
+        "y": 720
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-21"
+      }
+    },
+    {
+      "id": "scene-21",
+      "title": "Scene 21",
+      "body": "The sun dipped low in the sky as Ash sat beneath a sprawling tree, its shade offering relief from the day’s fatigue. Ashy, calm and loyal, lay curled up beside him, chest rising and falling in quiet sleep. The wind was gentle, brushing the grass in slow waves. For a while, there was nothing but stillness — no battles, no noise, just the distant chirping of wild Pokémon and the rustling of leaves.\n\nAsh leaned back, arms behind his head, staring up at the orange-stained clouds. His mind was a blur of memories — wins, losses, hard lessons. But even through the setbacks, he could feel himself growing. Every step had taken him further from Pallet Town and closer to the trainer he wanted to become.\n\nThen, in the distance, the sky shimmered. Ash’s eyes widened as a radiant bird with fiery wings soared gracefully across the horizon. It glided through the sunbeams like a painting come to life — golden feathers, trailing sparkles, wings stretching across the heavens.\n\nHo-Oh.\n\nAsh had only heard of it in stories — a legendary Pokémon said to appear to Trainers with a pure heart and unbreakable spirit. His breath caught as the majestic bird cried out in the sky, circling once before vanishing behind a distant cloud.\n\nAsh sat in stunned silence. That moment — that glimpse — was more than just a sight. It was a sign.\n\nA sign that his journey mattered.",
+      "bonusText": "Misty had been resting nearby, but Ho-Oh’s cry had drawn her attention skyward. She stood slowly, mouth slightly open as she stared at the fading trail of gold. “Was that… Ho-Oh?” she whispered, her voice filled with awe. “I’ve only ever read about it. That was real, wasn’t it?” Ash nodded, still a bit dazed. “Yeah… I think it was.”Misty turned to him with a small smile. “I’ve traveled a lot, Ash. But I’ve never seen anything like that. You really are something, y’know? Even the legends want to see where you’re headed.” Ash blinked, touched by her words. For a moment, they simply stood in silence, side by side, letting the sky slowly fade to dusk.With a deep breath, Ash rose to his feet and looked toward the path ahead. “Let’s keep going.” And together, they stepped forward.",
+      "color": "#ea580c",
+      "position": {
+        "x": 280,
+        "y": 720
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-22"
+      }
+    },
+    {
+      "id": "scene-22",
+      "title": "Scene 22",
+      "body": "The calm of the afternoon was shattered by a sudden rustling in the bushes nearby. Three figures stepped into view with exaggerated, menacing grins. Jessie, James, and Meowth — the infamous Team Rocket trio — had arrived. Their eyes gleamed with mischief and greed as they locked onto Ash and Ashy.\n\nJessie threw back her head with theatrical flair. \"Prepare for trouble!\"\n\nJames struck a dramatic pose. \"And make it double!\"\n\nMeowth twirled around, flashing his sharp teeth. \"To protect the world from devastation!\"\n\nJessie waved her finger. \"To unite all peoples within our nation!\"\n\nJames raised his Poké Ball high. \"To denounce the evils of truth and love!\"\n\nTogether, they shouted in unison: \"Team Rocket blasts off at the speed of light! Surrender now or prepare to fight!\"\n\nAsh's grip tightened on Ashy's Poké Ball. His heart thundered, but his voice was steady. \"I'm not giving up my Pokémon. You'll have to get through me first.\"\n\nJessie smirked. “A rookie trainer with guts. This’ll be fun!”\n\nJames pulled out a Poké Ball. “Hand over your Pokémon, kid, or face defeat!”\n\nMeowth grinned slyly. “Yeah! We’re not just gonna let you walk away!”\n\nThe tension crackled in the air, ready to burst into battle.",
+      "bonusText": "Misty stepped forward from behind Ash, her eyes blazing with determination. “I’m not just going to stand here and watch,” she said firmly. “I’ll fight with you, Ash. You’re not alone.” Ash turned toward her, a grateful smile breaking across his face. “Thanks, Misty. It means a lot to have you here.” Together, side by side, they prepared to face Team Rocket.",
+      "color": "#16a34a",
+      "position": {
+        "x": 560,
+        "y": 720
+      },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          {
+            "id": "choice-22-1",
+            "label": "Stand and fight",
+            "targetSceneId": "scene-23"
+          },
+          {
+            "id": "choice-22-2",
+            "label": "Run away",
+            "targetSceneId": "scene-24"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scene-23",
+      "title": "Scene 23",
+      "body": "The battle erupted swiftly as Team Rocket launched their Pokémon with aggressive commands. Ash stayed focused, his bond with Ashy clear in every move they made. Ashy responded instantly to Ash's commands, dodging attacks and countering with powerful moves.\n\nTeam Rocket's Pokémon snarled and lunged, but Ash's quick thinking and trust in Ashy turned the tide. With a decisive strike, Ashy unleashed a burst of energy that sent the opponents reeling. Jessie, James, and Meowth stumbled back, stunned and defeated.\n\nThe three villains fell to their knees, their Poké Balls scattering at their feet. \"No way... how did a rookie beat us?\" Jessie gasped, clutching her head.\n\nAsh stood tall, breathing heavily but proud. \"I told you — I'm not giving up my friends.\"\n\nTeam Rocket groaned, then suddenly scrambled for their Poké Balls. \"We'll get you next time!\" James shouted as they triggered their escape devices.\n\nThe iconic blast-off phrase echoed through the air:\n“Team Rocket blasts off at the speed of light!\nSurrender now or prepare to fight!”\n\nAs the trio disappeared into the sky, Ash exhaled a sigh of relief. His heart still raced, but his spirit soared higher than ever.",
+      "bonusText": "Ash and Misty walked away from the battle, the tension fading with each step. Misty glanced at Ash, a playful smile on her face. “You know, I don’t think that was enough to send them packing for good.” She summoned her Starmie, eyes shining with determination. “Let’s double their trouble.”Ash nodded, summoning Ashy. “Ready, Ashy? Let’s show them the Power of Friendship!”Together, Ashy and Starmie combined their moves in a dazzling display of synchronized energy—lightning crackling, water swirling, and vines whipping with strength fueled by their bond.The blast caught Team Rocket mid-flight, blasting them back with surprising force. They tumbled and cried out, “Nooo! Master Giovanni will punish us all!” Ash and Misty laughed, watching their foes vanish beyond the horizon. The victory felt sweeter with friendship by their side.",
+      "color": "#0891b2",
+      "position": {
+        "x": 840,
+        "y": 720
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-25"
+      }
+    },
+    {
+      "id": "scene-24",
+      "title": "Scene 24",
+      "body": "Ash's heart raced as Team Rocket's threats grew more intense. The moment felt too overwhelming — he wasn't ready for this kind of battle, not yet. With a quick glance around, he grabbed Ashy's Poké Ball and bolted into the forest.\n\n\"Get back here!\" Jessie shouted.\n\nJames and Meowth pursued briefly, but Ash's quick thinking led him through thick underbrush and narrow paths. Unfortunately, in the chaos, one of his Poké Balls slipped from his bag, bouncing away into the enemy's hands.\n\n\"Looks like we still scored a prize,\" Meowth grinned.\n\n\"Team Rocket's blasting off with loot!\" Jessie cheered as they disappeared into the trees.\n\nAsh finally slowed near a rocky stream, panting hard. He looked down at Ashy's Poké Ball in his hand — relief that they were safe... but sorrow knowing he had lost one of his companions.",
+      "bonusText": "Misty ran alongside him, keeping pace until they were far from danger. She turned to him gently, placing a hand on his shoulder. “It’s okay to be scared, Ash. Everyone is at first. But never lose hope. This doesn’t mean you failed — it just means you’ll grow from it.” Ash nodded quietly, the weight still heavy in his chest. But Misty’s words gave him a spark of strength — enough to keep walking forward.",
+      "color": "#2563eb",
+      "position": {
+        "x": 1120,
+        "y": 720
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-26"
+      }
+    },
+    {
+      "id": "scene-25",
+      "title": "Scene 25",
+      "body": "The sun hung low in the sky, casting long shadows across the winding path that led out of Pallet Town. Ash walked confidently, his trusted Pokémon Ashy by his side, the soft rustle of leaves and the chirping of wild Pokémon filling the air. Every step forward was a promise — a promise to himself, to Ashy, and to the countless adventures that awaited.\n\nBehind him, the town's familiar sights grew smaller, but the excitement inside him only grew stronger. The taste of victory over Team Rocket lingered, but more than that was the growing bond between Ash and his Pokémon, a bond forged through trust, struggle, and shared dreams.\n\nAhead, the road stretched towards Viridian City, filled with unknown challenges, new friends, and endless possibilities. Ash's heart beat with determination — he wasn't just a boy with a dream anymore; he was a Trainer ready to carve his own legend.\nAhead, the road stretched towards Viridian City, filled with unknown challenges, new friends, and endless possibilities. Ash’s heart beat with determination — he wasn’t just a boy with a dream anymore; he was a Trainer ready to carve his own legend.\n\nAs he walked, a quiet smile played on his lips. The journey was just beginning, but Ash knew one thing for sure: no matter what lay ahead, he wouldn’t be facing it alone.",
+      "bonusText": "Misty walked beside Ash, her presence a steady comfort on the uncertain road ahead. “You’ve come so far already, Ash,” she said, her voice warm. “And I’m excited to see how far you’ll go. Remember, it’s not just about winning — it’s about growing stronger together.” Ash glanced at her, gratitude shining in his eyes. “Thanks, Misty. Having you here makes all the difference.”Together, they moved forward — two friends bound by the thrill of adventure and the unbreakable power of friendship.",
+      "color": "#7c3aed",
+      "position": {
+        "x": 0,
+        "y": 900
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-27"
+      }
+    },
+    {
+      "id": "scene-26",
+      "title": "Scene 26",
+      "body": "The forest felt quieter now, even though the wind still rustled the leaves. Ash sat by a tree, eyes downcast, his hands loosely holding Ashy's Poké Ball. The recent escape haunted him — the lost Poké Ball, the missed opportunity, the feeling of running instead of standing tall.\n\nAshy emerged and sat beside him, sensing the weight his Trainer carried. There was no anger in its eyes, only quiet understanding. But trust, Ash knew, was fragile. He'd have to work hard to rebuild what was lost.\n\n\"I'm sorry,\" Ash whispered, voice thick with regret. \"I should've protected all of you.\"\n\nThe road ahead stretched on, now shrouded with doubt. But Ash refused to give up. This was just a setback — not the end.\n\nHe would train harder, grow stronger, and one day... he would face his fears head-on.",
+      "bonusText": "Misty sat down beside him, her tone both soft and strong. “Ash, I’ve seen Trainers quit over less. But you? You’re not like them. You care. That’s what makes you different.”Ash glanced at her, a spark of gratitude behind his tired eyes. “Thanks… I needed that.”They sat together in silence for a moment, the bond between them growing stronger with each step, even in defeat.",
+      "color": "#db2777",
+      "position": {
+        "x": 280,
+        "y": 900
+      },
+      "transition": {
+        "type": "continue",
+        "targetSceneId": "scene-27"
+      }
+    },
+    {
+      "id": "scene-27",
+      "title": "The End",
+      "body": "Thank you for Playing the game!",
+      "color": "#ea580c",
+      "position": {
+        "x": 560,
+        "y": 900
+      },
+      "transition": {
+        "type": "ending"
+      }
+    }
+  ]
 };
 
 export const fanDemoDisclaimer =
   "Unofficial fan-made educational demonstration. Not affiliated with or endorsed by Nintendo, Game Freak, Creatures, or The Pokémon Company. No official artwork is used.";
-
