@@ -1,0 +1,1424 @@
+{
+  "format": "big-maq-story",
+  "version": 1,
+  "id": "the-warning-of-shui-guo",
+  "title": "The Warning of Shuǐ Guó",
+  "author": "Big MAQ Studio",
+  "description": "A large-scale interactive fantasy novel about Shien Yu, a village messenger who sets out to warn Shuǐ Guó of famine and uncovers a kingdom built on rewritten history, family betrayal, and an ancient hunger beneath the throne.",
+  "variables": {
+    "xp": 0,
+    "truths": 0,
+    "peopleTrust": 0,
+    "xuanTrust": 0,
+    "yurenTrust": 0,
+    "dragonTrust": 0,
+    "allies": 0,
+    "thirdMarks": 0,
+    "liWei": false,
+    "boRen": false,
+    "meiLin": false,
+    "xiaoFeng": false,
+    "riverBlessing": false,
+    "ledgerFound": false,
+    "mapFound": false,
+    "fatherKnown": false,
+    "emperorTruth": false,
+    "devourerTruth": false,
+    "thirdPath": false,
+    "shrineComplete": false
+  },
+  "createdAt": "2026-06-16T16:30:00Z",
+  "updatedAt": "2026-06-16T16:30:00Z",
+  "startSceneId": "s00_prologue",
+  "scenes": [
+    {
+      "id": "s00_prologue",
+      "title": "Night of the Black Water",
+      "body": "In the fishing village of Yang Zing River, Shien Yu wakes from a dream in which the kingdom's canals run black, rice fields crack like old pottery, and a throne of wet stone breathes beneath the earth. The vision leaves the taste of silt in his mouth and the certainty that if he stays quiet, Shuǐ Guó will starve. Before dawn fully breaks, he must decide how to begin the warning that may save a kingdom or shatter it.",
+      "bonusText": "In the dream, one detail burns brighter than the rest: a bell ringing in a city Shien has never seen.",
+      "bonusCondition": "xp >= 0",
+      "tags": ["start", "vision", "yang-zing"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#1d4ed8",
+      "position": { "x": 0, "y": 0 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s00a", "label": "Wake the village elder immediately", "targetSceneId": "s01_elder_chamber", "effects": "xp += 5; peopleTrust += 1" },
+          { "id": "s00b", "label": "Go first to the river shrine before sunrise", "targetSceneId": "s02_river_shrine", "effects": "xp += 5" },
+          { "id": "s00c", "label": "Seek Li Wei at the abandoned watchfire", "targetSceneId": "s04_liwei_camp", "effects": "xp += 5; liWei = true; allies += 1" },
+          { "id": "s00d", "label": "Hire Bo Ren's ferry before the market wakes", "targetSceneId": "s05_boren_ferry", "effects": "xp += 5; boRen = true; allies += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s01_elder_chamber",
+      "title": "The Elder's Reed Maps",
+      "body": "Elder Suyin listens without laughing, which frightens Shien more than disbelief would have. She unrolls reed maps of trade roads, shrine lines, and the old flood channels, then admits that the harvest accounts from Yung Shao arrived lighter than they should have. If the famine has already begun, the warning cannot wait.",
+      "tags": ["elder", "maps", "warning"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#2563eb",
+      "position": { "x": 220, "y": 0 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s01a", "label": "Take the elder's horn to the river shrine", "targetSceneId": "s02_river_shrine", "effects": "xp += 5" },
+          { "id": "s01b", "label": "Ride straight for Yung Shao with the maps", "targetSceneId": "s06_yungshao_gate", "effects": "xp += 5; peopleTrust += 1" },
+          { "id": "s01c", "label": "Ask Li Wei to become your sword arm", "targetSceneId": "s04_liwei_camp", "effects": "xp += 5; liWei = true; allies += 1" },
+          { "id": "s01d", "label": "Seek Bo Ren's ferry and the river routes", "targetSceneId": "s05_boren_ferry", "effects": "xp += 5; boRen = true; allies += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s02_river_shrine",
+      "title": "Shrine of the First Current",
+      "body": "Mist coils around the old shrine as if the river itself were listening. Broken tablets speak of Water Guardians, covenant bells, and a hunger that rises whenever rulers store grain in secret while the poor go empty. Shien senses the place is trying to warn him, but in Shuǐ Guó every warning comes with a price.",
+      "bonusText": "One cracked line on the tablets mentions a guardian that turned on its makers when vows were broken.",
+      "bonusCondition": "xp >= 5",
+      "tags": ["shrine", "lore", "river"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#0f766e",
+      "position": { "x": 220, "y": 140 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s02a", "label": "Offer rice and ring the shrine bell", "targetSceneId": "s03_serpent_bank", "effects": "xp += 10; riverBlessing = true; thirdMarks += 1" },
+          { "id": "s02b", "label": "Read every cracked tablet before moving", "targetSceneId": "s13_guardian_memory", "effects": "xp += 10; truths += 1" },
+          { "id": "s02c", "label": "Leave at once for Yung Shao", "targetSceneId": "s06_yungshao_gate", "effects": "xp += 10" },
+          { "id": "s02d", "label": "Follow the black water running north", "targetSceneId": "s10_jade_pass", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s03_serpent_bank",
+      "title": "The River Serpent of Yang Zing",
+      "body": "At the ford beyond the shrine, the river erupts and a serpent plated in mud-dark scales coils around toppled ferry posts. Villagers once left it offerings, but now it tears nets apart as if enraged by a vow broken far upstream. Defeating it is possible; understanding why it rose may matter more.",
+      "tags": ["boss", "river-serpent", "yang-zing"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#0ea5e9",
+      "position": { "x": 440, "y": 140 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s03a", "label": "Harpoon the serpent in open water", "targetSceneId": "s06_yungshao_gate", "effects": "xp += 15" },
+          { "id": "s03b", "label": "Drive it back with the shrine bell and horn", "targetSceneId": "s06_yungshao_gate", "effects": "xp += 15; peopleTrust += 1" },
+          { "id": "s03c", "label": "Calm it with offerings and the old rite", "targetSceneId": "s06_yungshao_gate", "effects": "xp += 15; riverBlessing = true; thirdMarks += 1; peopleTrust += 1" },
+          { "id": "s03d", "label": "Follow it into the reeds to see what it guards", "targetSceneId": "s21_smuggler_map", "effects": "xp += 15; mapFound = true; truths += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s04_liwei_camp",
+      "title": "Li Wei Beneath the Burned Banner",
+      "body": "Li Wei, once an imperial guard, keeps a lonely camp under a weather-ruined banner he no longer claims. He hears the word famine, sharpens his spear without a word, and asks Shien whether this journey is meant to save the kingdom or expose it. It is the first time Shien realizes those may become different goals.",
+      "tags": ["companion", "li-wei", "imperial-guard"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#475569",
+      "position": { "x": 220, "y": 280 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s04a", "label": "Recruit Li Wei openly", "targetSceneId": "s06_yungshao_gate", "effects": "xp += 10; liWei = true; allies += 1; xuanTrust += 1" },
+          { "id": "s04b", "label": "Ask him about imperial roads and garrisons", "targetSceneId": "s10_jade_pass", "effects": "xp += 10; liWei = true; allies += 1" },
+          { "id": "s04c", "label": "Leave before dawn with only his warning", "targetSceneId": "s06_yungshao_gate", "effects": "xp += 5" },
+          { "id": "s04d", "label": "Let him shadow you from a distance", "targetSceneId": "s06_yungshao_gate", "effects": "xp += 8; peopleTrust += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s05_boren_ferry",
+      "title": "Bo Ren and the Hidden Channels",
+      "body": "Bo Ren smiles like a gambler who has already stacked the table in his favor. He knows the river tolls, the smugglers' bends, and which warehouses claim flood damage while quietly shipping grain to the coast. If Shien travels with him, speed will not be the only thing gained.",
+      "tags": ["companion", "bo-ren", "ferry"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#7c3aed",
+      "position": { "x": 220, "y": 420 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s05a", "label": "Pay Bo Ren for the fastest passage", "targetSceneId": "s06_yungshao_gate", "effects": "xp += 10; boRen = true; allies += 1" },
+          { "id": "s05b", "label": "Ask him what trade routes look wrong", "targetSceneId": "s07_hungry_market", "effects": "xp += 10; boRen = true; allies += 1; truths += 1" },
+          { "id": "s05c", "label": "Cross alone and keep your coin", "targetSceneId": "s06_yungshao_gate", "effects": "xp += 5" },
+          { "id": "s05d", "label": "Take the hidden reed channels with him", "targetSceneId": "s21_smuggler_map", "effects": "xp += 10; boRen = true; allies += 1; mapFound = true" }
+        ]
+      }
+    },
+    {
+      "id": "s06_yungshao_gate",
+      "title": "Yung Shao's Hungry Gates",
+      "body": "The first city Shien reaches already looks thinner than memory: fewer fish on hooks, shorter lines of firewood, longer lines outside the granaries. Gate scribes speak of 'temporary shortage' while soldiers inspect carts heavy enough to prove otherwise. The famine is no rumor now; it has a bureaucratic face.",
+      "tags": ["yung-shao", "city", "scarcity"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#2563eb",
+      "position": { "x": 660, "y": 140 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s06a", "label": "Enter through the merchant arch", "targetSceneId": "s07_hungry_market", "effects": "xp += 10" },
+          { "id": "s06b", "label": "Chase grain thieves over the wall", "targetSceneId": "s08_bandit_hideout", "effects": "xp += 10" },
+          { "id": "s06c", "label": "Read the tax notices and ration decrees", "targetSceneId": "s09_merchant_ledger", "effects": "xp += 10; truths += 1" },
+          { "id": "s06d", "label": "Take the northern road to Jade Pass", "targetSceneId": "s10_jade_pass", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s07_hungry_market",
+      "title": "A Market with Full Ledgers and Empty Bowls",
+      "body": "Yung Shao's market still clatters, but the sound is wrong. Merchants argue over luxury spices while children wait outside noodle stalls that have nothing left to sell. Bo Ren calls it the smell of a city lying to itself.",
+      "tags": ["market", "famine", "yung-shao"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#f59e0b",
+      "position": { "x": 880, "y": 80 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s07a", "label": "Feed children from your travel pack", "targetSceneId": "s09_merchant_ledger", "effects": "xp += 10; peopleTrust += 1" },
+          { "id": "s07b", "label": "Trace the stolen carts to their handlers", "targetSceneId": "s08_bandit_hideout", "effects": "xp += 10" },
+          { "id": "s07c", "label": "Meet guild scribes in a shuttered tea house", "targetSceneId": "s09_merchant_ledger", "effects": "xp += 10" },
+          { "id": "s07d", "label": "Leave before the city swallows time and food alike", "targetSceneId": "s10_jade_pass", "effects": "xp += 8" }
+        ]
+      }
+    },
+    {
+      "id": "s08_bandit_hideout",
+      "title": "The Bandit Lord's Granary Fortress",
+      "body": "Shien discovers that the 'bandits' outside Yung Shao are less a rabble than a supply chain with swords. Their lord keeps stolen grain in a canyon storehouse stamped with seals from noble houses that deny any connection. Fighting him may clear the road; exposing him may change far more.",
+      "tags": ["boss", "bandit-lord", "conspiracy"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#b91c1c",
+      "position": { "x": 880, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s08a", "label": "Duel the Bandit Lord in the rain", "targetSceneId": "s09_merchant_ledger", "effects": "xp += 20" },
+          { "id": "s08b", "label": "Expose his noble employer to his own men", "targetSceneId": "s09_merchant_ledger", "effects": "xp += 20; ledgerFound = true; truths += 1; thirdMarks += 1; peopleTrust += 1" },
+          { "id": "s08c", "label": "Free the prisoners while the gang splinters", "targetSceneId": "s09_merchant_ledger", "effects": "xp += 20; peopleTrust += 1" },
+          { "id": "s08d", "label": "Offer surrender if every grain sack is returned", "targetSceneId": "s09_merchant_ledger", "effects": "xp += 18; peopleTrust += 2; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s09_merchant_ledger",
+      "title": "The Ledgers No Official Wanted Read",
+      "body": "Behind false walls and false taxes, Shien finds ledgers proving that grain moved out of Yung Shao even as the city was ordered to tighten rations. Numbers become names, names become houses, and the famine begins to look less like disaster than design. The road to Jade Pass now carries more than warning; it carries evidence.",
+      "tags": ["ledger", "evidence", "yung-shao"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#334155",
+      "position": { "x": 1100, "y": 150 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s09a", "label": "Read every page by lantern light", "targetSceneId": "s10_jade_pass", "effects": "xp += 10; ledgerFound = true; truths += 1" },
+          { "id": "s09b", "label": "Give copies to Bo Ren for safekeeping", "targetSceneId": "s10_jade_pass", "effects": "xp += 10; boRen = true; peopleTrust += 1" },
+          { "id": "s09c", "label": "Send proof ahead to the capital", "targetSceneId": "s10_jade_pass", "effects": "xp += 10; xuanTrust += 1" },
+          { "id": "s09d", "label": "Hide the proof until you understand the whole pattern", "targetSceneId": "s10_jade_pass", "effects": "xp += 12; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s10_jade_pass",
+      "title": "Jade Pass and the Wind of Old Vows",
+      "body": "The mountains above Shuǐ Guó feel older than the empire and less willing to forgive it. At Jade Pass, broken guardian statues stare over switchback roads that once carried tribute, prisoners, and flood engineers. Li Wei mutters that armies marched here in the dark years and came back speaking less than they knew.",
+      "tags": ["jade-pass", "mountain", "guardians"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#64748b",
+      "position": { "x": 1320, "y": 150 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s10a", "label": "Climb the guardian stairs", "targetSceneId": "s11_stone_trial", "effects": "xp += 10" },
+          { "id": "s10b", "label": "March through the soldier tunnel", "targetSceneId": "s12_stone_guardian", "effects": "xp += 10" },
+          { "id": "s10c", "label": "Follow runoff into a forgotten cave", "targetSceneId": "s13_guardian_memory", "effects": "xp += 10; truths += 1" },
+          { "id": "s10d", "label": "Rest at Li Wei's old checkpoint", "targetSceneId": "s11_stone_trial", "effects": "xp += 8" }
+        ]
+      }
+    },
+    {
+      "id": "s11_stone_trial",
+      "title": "Trial of Memory, Duty, and Mercy",
+      "body": "Three carved doors stand in the cliffs: one marked by tears, one by spears, and one by open hands. The guardian system of old Shuǐ Guó did not merely defend roads; it judged the people who used them. Shien must answer which kind of ruler the kingdom deserves before the mountain will answer back.",
+      "tags": ["trial", "guardian", "mountain"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#78716c",
+      "position": { "x": 1540, "y": 80 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s11a", "label": "Choose the trial of memory", "targetSceneId": "s12_stone_guardian", "effects": "xp += 10; truths += 1" },
+          { "id": "s11b", "label": "Choose the trial of duty", "targetSceneId": "s12_stone_guardian", "effects": "xp += 10; xuanTrust += 1" },
+          { "id": "s11c", "label": "Choose the trial of mercy", "targetSceneId": "s12_stone_guardian", "effects": "xp += 10; thirdMarks += 1" },
+          { "id": "s11d", "label": "Break the seals and rush onward", "targetSceneId": "s12_stone_guardian", "effects": "xp += 6" }
+        ]
+      }
+    },
+    {
+      "id": "s12_stone_guardian",
+      "title": "The Stone Guardian of Jade Pass",
+      "body": "The mountain wakes in the shape of a warrior larger than a house, its chest glowing with cold trapped lightning. It asks no question out loud, yet every blow it delivers feels like one: what is Shien willing to destroy to make himself heard? To pass Jade Pass is to pass under judgment.",
+      "tags": ["boss", "stone-guardian", "jade-pass"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#57534e",
+      "position": { "x": 1760, "y": 150 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s12a", "label": "Shatter the guardian with force", "targetSceneId": "s14_nanhai_docks", "effects": "xp += 22" },
+          { "id": "s12b", "label": "Cool its core with shrine water", "targetSceneId": "s13_guardian_memory", "effects": "xp += 20; riverBlessing = true" },
+          { "id": "s12c", "label": "Speak the vow hidden in the tablets", "targetSceneId": "s13_guardian_memory", "effects": "xp += 20; truths += 1; thirdMarks += 1" },
+          { "id": "s12d", "label": "Let Li Wei draw its attention while you pass", "targetSceneId": "s14_nanhai_docks", "effects": "xp += 18; xuanTrust += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s13_guardian_memory",
+      "title": "The Memory Buried Inside Stone",
+      "body": "When the guardian breaks or kneels, its last gift is memory. Shien sees flood engineers under imperial banners forcing guardians to turn their strength toward ration vaults and river locks, not toward the people they were sworn to defend. The famine suddenly has ancestors.",
+      "bonusText": "One flicker of the memory shows a jade seal in the hand of an emperor watching starving farmers from a dry balcony.",
+      "bonusCondition": "xp >= 35",
+      "tags": ["memory", "truth", "empire"],
+      "chapter": "Chapter 1 - The River's Warning",
+      "color": "#8b5cf6",
+      "position": { "x": 1760, "y": 290 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s13a", "label": "Accept that the guardians hid terrible truths", "targetSceneId": "s14_nanhai_docks", "effects": "xp += 12; truths += 1; thirdMarks += 1" },
+          { "id": "s13b", "label": "Reject the memory as a mountain trick", "targetSceneId": "s14_nanhai_docks", "effects": "xp += 10" },
+          { "id": "s13c", "label": "Ask where the black water flowed next", "targetSceneId": "s21_smuggler_map", "effects": "xp += 12; mapFound = true; truths += 1" },
+          { "id": "s13d", "label": "Carry the broken jade seal as evidence", "targetSceneId": "s14_nanhai_docks", "effects": "xp += 12; emperorTruth = true" }
+        ]
+      }
+    },
+    {
+      "id": "s14_nanhai_docks",
+      "title": "Nanhai, City of Salt and Shortage",
+      "body": "Nanhai should smell of wealth and sea wind, but the harbor reeks of rotten rope, panic, and hidden cargo. Grain ships sit under armed guard while fishing families trade heirlooms for half-sacks of millet. The coast has not escaped the famine; it has become one of its engines.",
+      "tags": ["nanhai", "harbor", "famine"],
+      "chapter": "Chapter 2 - The Shadows of Nanhai",
+      "color": "#0284c7",
+      "position": { "x": 1980, "y": 150 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s14a", "label": "Help unload boats for starving villages", "targetSceneId": "s17_meilin_clinic", "effects": "xp += 10; peopleTrust += 1" },
+          { "id": "s14b", "label": "Track the pirate fleet through the harbor", "targetSceneId": "s15_pirate_harbor", "effects": "xp += 10" },
+          { "id": "s14c", "label": "Follow whispers to a healer's hidden clinic", "targetSceneId": "s17_meilin_clinic", "effects": "xp += 10; meiLin = true; allies += 1" },
+          { "id": "s14d", "label": "Search the tax storehouses first", "targetSceneId": "s18_salt_warehouse", "effects": "xp += 10; truths += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s15_pirate_harbor",
+      "title": "Harbor of the Tide-Crowned Pirates",
+      "body": "The pirates of Nanhai are not random raiders; they strike only the ships that would have fed inland villages. Someone pays them to do it, and someone richer profits from every empty bowl upriver. If Shien reaches their king, he may find a criminal or a witness wearing another man's mask.",
+      "tags": ["pirates", "harbor", "boss-route"],
+      "chapter": "Chapter 2 - The Shadows of Nanhai",
+      "color": "#0369a1",
+      "position": { "x": 2200, "y": 80 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s15a", "label": "Board the flagship under moonlight", "targetSceneId": "s16_pirate_king", "effects": "xp += 10" },
+          { "id": "s15b", "label": "Rally dockworkers into a diversion", "targetSceneId": "s16_pirate_king", "effects": "xp += 10; peopleTrust += 1" },
+          { "id": "s15c", "label": "Ask Bo Ren for the smugglers' back routes", "targetSceneId": "s21_smuggler_map", "effects": "xp += 10; mapFound = true" },
+          { "id": "s15d", "label": "Hunt the assassin rumored to serve the fleet", "targetSceneId": "s19_mist_assassin", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s16_pirate_king",
+      "title": "The Pirate King of Nanhai",
+      "body": "The Pirate King waits on a deck draped in prayer flags stolen from drowned shrines, laughing like the sea itself taught him cruelty. Yet his captains watch the harbor storehouses, not the open horizon, as if their orders come from land. Defeating him may break a fleet; hearing him out may crack the conspiracy wider open.",
+      "tags": ["boss", "pirate-king", "nanhai"],
+      "chapter": "Chapter 2 - The Shadows of Nanhai",
+      "color": "#1e40af",
+      "position": { "x": 2420, "y": 80 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s16a", "label": "Fight blade to blade on the mast", "targetSceneId": "s17_meilin_clinic", "effects": "xp += 25" },
+          { "id": "s16b", "label": "Cut the chain holding the grain barges", "targetSceneId": "s17_meilin_clinic", "effects": "xp += 25; peopleTrust += 1" },
+          { "id": "s16c", "label": "Offer amnesty in exchange for testimony", "targetSceneId": "s18_salt_warehouse", "effects": "xp += 22; truths += 1; thirdMarks += 1" },
+          { "id": "s16d", "label": "Burn the flagship and seize every chart", "targetSceneId": "s21_smuggler_map", "effects": "xp += 25; mapFound = true" }
+        ]
+      }
+    },
+    {
+      "id": "s17_meilin_clinic",
+      "title": "Mei Lin's Lantern Clinic",
+      "body": "Hidden between shuttered inns, Mei Lin runs a clinic lit by fish-oil lamps and stubbornness. She treats famine fever, catalogues unusual blight patterns, and has already concluded that the rot moving through Shuǐ Guó behaves like policy before it behaves like plague. She does not ask whether Shien is brave; she asks whether he is willing to learn.",
+      "tags": ["companion", "mei-lin", "clinic"],
+      "chapter": "Chapter 2 - The Shadows of Nanhai",
+      "color": "#16a34a",
+      "position": { "x": 2200, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s17a", "label": "Ask Mei Lin to join your journey", "targetSceneId": "s18_salt_warehouse", "effects": "xp += 10; meiLin = true; allies += 1; truths += 1" },
+          { "id": "s17b", "label": "Help treat the fever tents before leaving", "targetSceneId": "s18_salt_warehouse", "effects": "xp += 10; peopleTrust += 1; meiLin = true; allies += 1" },
+          { "id": "s17c", "label": "Compare her notes with your ledgers", "targetSceneId": "s20_temple_of_tides", "effects": "xp += 10; meiLin = true; allies += 1; truths += 1" },
+          { "id": "s17d", "label": "Leave medicine and head for the warehouses", "targetSceneId": "s18_salt_warehouse", "effects": "xp += 8" }
+        ]
+      }
+    },
+    {
+      "id": "s18_salt_warehouse",
+      "title": "Warehouses of White Salt and Dark Grain",
+      "body": "The warehouse district is guarded more tightly than a palace chapel. Salt barrels line the outer rooms, but behind them lie sealed grain holds marked for nonexistent flood relief programs. The longer Shien looks, the clearer it becomes that someone has practiced this theft for years.",
+      "tags": ["warehouse", "evidence", "nanhai"],
+      "chapter": "Chapter 2 - The Shadows of Nanhai",
+      "color": "#6b7280",
+      "position": { "x": 2420, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s18a", "label": "Confront the noble factor hiding the grain", "targetSceneId": "s19_mist_assassin", "effects": "xp += 10; truths += 1" },
+          { "id": "s18b", "label": "Mark the crates and follow them secretly", "targetSceneId": "s21_smuggler_map", "effects": "xp += 10; mapFound = true" },
+          { "id": "s18c", "label": "Free the workers locked in the storehouse", "targetSceneId": "s20_temple_of_tides", "effects": "xp += 10; peopleTrust += 1" },
+          { "id": "s18d", "label": "Take the evidence straight to Mei Lin", "targetSceneId": "s20_temple_of_tides", "effects": "xp += 10; truths += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s19_mist_assassin",
+      "title": "The Mist Assassin",
+      "body": "Shien's enemy comes wrapped in harbor fog and silk-thin knives, moving with the precision of someone trained by people who erase witnesses for a living. Mid-fight, the assassin speaks a name Shien never expected to hear in Nanhai: General Xuan. Whether it is truth, bait, or both depends on what Shien is willing to risk.",
+      "tags": ["boss", "mist-assassin", "betrayal"],
+      "chapter": "Chapter 2 - The Shadows of Nanhai",
+      "color": "#0f172a",
+      "position": { "x": 2640, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s19a", "label": "Fight the assassin through the rain garden", "targetSceneId": "s20_temple_of_tides", "effects": "xp += 24" },
+          { "id": "s19b", "label": "Corner the assassin and demand the full story", "targetSceneId": "s20_temple_of_tides", "effects": "xp += 22; truths += 1; mapFound = true" },
+          { "id": "s19c", "label": "Spare the assassin for a hidden route map", "targetSceneId": "s21_smuggler_map", "effects": "xp += 22; truths += 1; mapFound = true; thirdMarks += 1" },
+          { "id": "s19d", "label": "Promise to reveal the conspiracy if the assassin yields", "targetSceneId": "s20_temple_of_tides", "effects": "xp += 20; peopleTrust += 1; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s20_temple_of_tides",
+      "title": "Temple of Tides",
+      "body": "Nanhai's oldest sea temple has been left to salt and gulls, yet the flood murals remain vivid enough to accuse the living. Mei Lin points out that the carvings do not portray famine as nature's anger, but as the result of gates, channels, and deliberate redirection. Whoever controls the water writes the history that follows.",
+      "bonusText": "One mural shows a man in imperial robes offering grain to an unseen mouth beneath the floor.",
+      "bonusCondition": "truths >= 2",
+      "tags": ["temple", "lore", "water"],
+      "chapter": "Chapter 2 - The Shadows of Nanhai",
+      "color": "#0f766e",
+      "position": { "x": 2860, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s20a", "label": "Study the flood murals with Mei Lin", "targetSceneId": "s22_scholar_convoy", "effects": "xp += 12; truths += 1" },
+          { "id": "s20b", "label": "Kneel before the salt-worn altar", "targetSceneId": "s22_scholar_convoy", "effects": "xp += 12; riverBlessing = true" },
+          { "id": "s20c", "label": "Search the drowned crypts below", "targetSceneId": "s21_smuggler_map", "effects": "xp += 12; mapFound = true; truths += 1" },
+          { "id": "s20d", "label": "Leave offerings for the dead sailors", "targetSceneId": "s22_scholar_convoy", "effects": "xp += 10; peopleTrust += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s21_smuggler_map",
+      "title": "Map of Hidden Water and Hidden Power",
+      "body": "Whether taken from smugglers, pirates, or assassins, the map tells the same ugly truth: food disappears where record books say it should flow, then resurfaces where powerful men prefer it counted. It also marks routes to Yu Shu, drowned crypts, and a sanctuary that no public survey admits exists. The conspiracy is geographic now.",
+      "tags": ["map", "routes", "secret"],
+      "chapter": "Chapter 2 - The Shadows of Nanhai",
+      "color": "#7c2d12",
+      "position": { "x": 2860, "y": 80 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s21a", "label": "Follow the map inland toward Yu Shu", "targetSceneId": "s23_yushu_gate", "effects": "xp += 10; mapFound = true" },
+          { "id": "s21b", "label": "Visit the hidden granary beneath the cliffs", "targetSceneId": "s22_scholar_convoy", "effects": "xp += 10; truths += 1" },
+          { "id": "s21c", "label": "Copy every route before moving on", "targetSceneId": "s23_yushu_gate", "effects": "xp += 12" },
+          { "id": "s21d", "label": "Burn the map so no tyrant can claim it", "targetSceneId": "s23_yushu_gate", "effects": "xp += 8; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s22_scholar_convoy",
+      "title": "Convoy of Banned Questions",
+      "body": "On the north road, Shien encounters scholars traveling under quiet guard to Yu Shu. Their chests contain censored census rolls, old shrine receipts, and letters from magistrates whose final lines all stop in the middle of blame. The further north the convoy goes, the less accidental the famine feels.",
+      "tags": ["scholars", "convoy", "truth"],
+      "chapter": "Chapter 2 - The Shadows of Nanhai",
+      "color": "#a16207",
+      "position": { "x": 3080, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s22a", "label": "Escort the scholars to Yu Shu", "targetSceneId": "s23_yushu_gate", "effects": "xp += 12; peopleTrust += 1" },
+          { "id": "s22b", "label": "Read their sealed letters on the road", "targetSceneId": "s24_great_library", "effects": "xp += 12; truths += 1" },
+          { "id": "s22c", "label": "Ask about erased dynasties", "targetSceneId": "s24_great_library", "effects": "xp += 12; truths += 1; emperorTruth = true" },
+          { "id": "s22d", "label": "Keep watch while the convoy sleeps", "targetSceneId": "s23_yushu_gate", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s23_yushu_gate",
+      "title": "Yu Shu, City of Bells and Censors",
+      "body": "Yu Shu rises out of cold rain like a carved answer waiting for the right question. Monasteries cling to the heights, scholars guard lower archives, and everywhere bells sound as if the city wants to remember something the empire ordered it to forget. Shien enters a city built on learning and fear in equal measure.",
+      "tags": ["yu-shu", "city", "bells"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#4338ca",
+      "position": { "x": 3300, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s23a", "label": "Enter by the scholar bridge", "targetSceneId": "s24_great_library", "effects": "xp += 10" },
+          { "id": "s23b", "label": "Climb to the monastery bells", "targetSceneId": "s26_monastery_steps", "effects": "xp += 10" },
+          { "id": "s23c", "label": "Follow the monk who spoke your family name", "targetSceneId": "s27_xiaofeng_cell", "effects": "xp += 10" },
+          { "id": "s23d", "label": "Search for the drowned road beneath the city", "targetSceneId": "s28_drowned_road", "effects": "xp += 10; mapFound = true" }
+        ]
+      }
+    },
+    {
+      "id": "s24_great_library",
+      "title": "The Great Library's Missing Shelves",
+      "body": "The Great Library of Yu Shu is vast enough to humble kings, which may be why kings have spent centuries trimming it. Entire shelf lines have been removed and replaced with polished stone, as if absence itself were an acceptable form of recordkeeping. To study here is to learn from what survived and from what was deliberately erased.",
+      "tags": ["library", "archives", "yu-shu"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#4f46e5",
+      "position": { "x": 3520, "y": 140 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s24a", "label": "Read the famine annals", "targetSceneId": "s25_hidden_archive", "effects": "xp += 12; truths += 1" },
+          { "id": "s24b", "label": "Search for records on Yu Ren", "targetSceneId": "s25_hidden_archive", "effects": "xp += 12; truths += 1" },
+          { "id": "s24c", "label": "Ask about the Water Guardians", "targetSceneId": "s26_monastery_steps", "effects": "xp += 12; truths += 1" },
+          { "id": "s24d", "label": "Steal a censored scroll before the scribes notice", "targetSceneId": "s25_hidden_archive", "effects": "xp += 10; emperorTruth = true" }
+        ]
+      }
+    },
+    {
+      "id": "s25_hidden_archive",
+      "title": "Archive of Wet Ink and Dry Lies",
+      "body": "Hidden behind false walls, the archive keeps duplicate histories: one for the people, one for those who govern them. Shien finds references to engineered shortages, vanished flood brigades, and a figure called the Black Flood who was condemned in public but petitioned in secret. From this point on, ignorance becomes a choice.",
+      "tags": ["hidden-archive", "history", "yu-ren"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#7c3aed",
+      "position": { "x": 3740, "y": 140 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s25a", "label": "Open the sealed emperor edict", "targetSceneId": "s35_archive_of_edicts", "effects": "xp += 15; truths += 1; emperorTruth = true" },
+          { "id": "s25b", "label": "Compare altered histories side by side", "targetSceneId": "s26_monastery_steps", "effects": "xp += 15; truths += 1" },
+          { "id": "s25c", "label": "Share what you found with Mei Lin", "targetSceneId": "s26_monastery_steps", "effects": "xp += 12" },
+          { "id": "s25d", "label": "Hide the scroll and seek the monks at once", "targetSceneId": "s26_monastery_steps", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s26_monastery_steps",
+      "title": "Steps of the Quiet Monastery",
+      "body": "The monastery above Yu Shu teaches stillness, but its novices move like men guarding powder stores. Here Shien learns that monks preserved prophecies in fragments so the empire could not destroy them all at once. One fragment mentions a son of the river who would stand between throne, flood, and dragon.",
+      "tags": ["monastery", "prophecy", "yu-shu"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#0f766e",
+      "position": { "x": 3520, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s26a", "label": "Debate doctrine with the abbots", "targetSceneId": "s27_xiaofeng_cell", "effects": "xp += 12; xiaoFeng = true; allies += 1; truths += 1" },
+          { "id": "s26b", "label": "Ring the bell that wakes old memories", "targetSceneId": "s36_bell_of_yushu", "effects": "xp += 12; truths += 1" },
+          { "id": "s26c", "label": "Ask for shelter, prophecy, and a guide", "targetSceneId": "s27_xiaofeng_cell", "effects": "xp += 12; xiaoFeng = true; allies += 1" },
+          { "id": "s26d", "label": "Refuse ceremony and head for the drowned road", "targetSceneId": "s28_drowned_road", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s27_xiaofeng_cell",
+      "title": "Xiao Feng Behind a Prayer Door",
+      "body": "Xiao Feng has been confined inside a vow-cell not because he sinned, but because he speaks too clearly. He knows Shien's name, his father's title, and the location of a drowned temple the empire would rather sink again than admit exists. Releasing him means inviting prophecy into the journey in a form that can answer back.",
+      "tags": ["companion", "xiao-feng", "prophecy"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#14b8a6",
+      "position": { "x": 3740, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s27a", "label": "Free Xiao Feng from the vow-cell", "targetSceneId": "s28_drowned_road", "effects": "xp += 10; xiaoFeng = true; allies += 1; thirdMarks += 1" },
+          { "id": "s27b", "label": "Ask why he knows your family name", "targetSceneId": "s33_yuren_reveal", "effects": "xp += 10; xiaoFeng = true; allies += 1; truths += 1" },
+          { "id": "s27c", "label": "Demand the prophecy immediately", "targetSceneId": "s36_bell_of_yushu", "effects": "xp += 10; truths += 1" },
+          { "id": "s27d", "label": "Leave him, but take his map charm", "targetSceneId": "s28_drowned_road", "effects": "xp += 8; mapFound = true" }
+        ]
+      }
+    },
+    {
+      "id": "s28_drowned_road",
+      "title": "The Drowned Road Below Yu Shu",
+      "body": "Beneath the city, old paving stones vanish into black water and broken shrine lamps. The drowned road once connected monastery, archive, and temple, which means the empire knew those truths belonged together. Every step toward the temple feels like walking deeper into a story someone tried to drown.",
+      "tags": ["drowned-road", "underground", "temple"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#155e75",
+      "position": { "x": 3960, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s28a", "label": "March through the flooded causeway", "targetSceneId": "s29_iron_warlord", "effects": "xp += 12" },
+          { "id": "s28b", "label": "Search sidetunnels for relics and marks", "targetSceneId": "s30_drowned_temple", "effects": "xp += 12; truths += 1" },
+          { "id": "s28c", "label": "Let Xiao Feng guide the prayer route", "targetSceneId": "s30_drowned_temple", "effects": "xp += 12" },
+          { "id": "s28d", "label": "Return once more to the emperor records", "targetSceneId": "s35_archive_of_edicts", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s29_iron_warlord",
+      "title": "The Iron Warlord of the Pumps",
+      "body": "The drowned road is defended by a warlord in rusted plate fed by pressure pumps that drink from buried canals. He calls himself the keeper of balance, though his balance is measured in who drinks and who drowns. To beat him is to take the road; to understand him is to glimpse how long this machinery of scarcity has endured.",
+      "tags": ["boss", "iron-warlord", "drowned-road"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#9a3412",
+      "position": { "x": 4180, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s29a", "label": "Defeat the Iron Warlord in open combat", "targetSceneId": "s30_drowned_temple", "effects": "xp += 28" },
+          { "id": "s29b", "label": "Break the pumps feeding his armor", "targetSceneId": "s30_drowned_temple", "effects": "xp += 28; truths += 1" },
+          { "id": "s29c", "label": "Offer his soldiers water and pardon", "targetSceneId": "s30_drowned_temple", "effects": "xp += 24; peopleTrust += 1; thirdMarks += 1" },
+          { "id": "s29d", "label": "Invoke Yu Ren's forgotten banner and duel him", "targetSceneId": "s30_drowned_temple", "effects": "xp += 26; fatherKnown = true" }
+        ]
+      }
+    },
+    {
+      "id": "s30_drowned_temple",
+      "title": "Temple Beneath the Scholar City",
+      "body": "The Drowned Temple is not abandoned. It is waiting, full of murals that show guardians, emperors, and flood engineers kneeling before a shape painted only as a mouth beneath the earth. Shien understands, perhaps for the first time, that famine in Shuǐ Guó may be a ritual wearing the mask of administration.",
+      "tags": ["temple", "drowned-temple", "lore"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#4338ca",
+      "position": { "x": 4400, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s30a", "label": "Enter the central sanctum", "targetSceneId": "s31_spirit_temple", "effects": "xp += 12" },
+          { "id": "s30b", "label": "Search the murals of the first flood", "targetSceneId": "s34_father_memory", "effects": "xp += 12; truths += 1" },
+          { "id": "s30c", "label": "Pray at the cracked pool", "targetSceneId": "s31_spirit_temple", "effects": "xp += 10; riverBlessing = true" },
+          { "id": "s30d", "label": "Send companions to guard the exits", "targetSceneId": "s31_spirit_temple", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s31_spirit_temple",
+      "title": "Spirit of the Drowned Temple",
+      "body": "The temple's guardian spirit rises from the pool wearing chains of prayer bronze and imperial iron. It is less a monster than a witness forced to keep remembering the same betrayal. When it attacks, it does so like a being furious that history survived only in its wounds.",
+      "tags": ["boss", "spirit", "drowned-temple"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#5b21b6",
+      "position": { "x": 4620, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s31a", "label": "Destroy the spirit and seize its knowledge", "targetSceneId": "s32_black_flood_meeting", "effects": "xp += 30; truths += 1" },
+          { "id": "s31b", "label": "Free the spirit from the emperor's chains", "targetSceneId": "s32_black_flood_meeting", "effects": "xp += 28; truths += 1; dragonTrust += 1; thirdMarks += 1" },
+          { "id": "s31c", "label": "Let Mei Lin read the old pact while you defend her", "targetSceneId": "s32_black_flood_meeting", "effects": "xp += 28; truths += 1" },
+          { "id": "s31d", "label": "Swear to carry the spirit's warning to the world", "targetSceneId": "s32_black_flood_meeting", "effects": "xp += 26; thirdMarks += 1; peopleTrust += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s32_black_flood_meeting",
+      "title": "Summons of the Black Flood",
+      "body": "When Shien leaves the temple, masked riders wait in silence and offer neither threat nor comfort. They bear the insignia of the Black Flood, a name the empire taught children to fear and scholars to avoid writing. Their leader says only this: 'If you want the truth about the famine, come meet the man they buried alive in history.'",
+      "tags": ["black-flood", "summons", "mystery"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#1f2937",
+      "position": { "x": 4840, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s32a", "label": "Follow the masked envoy to their camp", "targetSceneId": "s33_yuren_reveal", "effects": "xp += 12" },
+          { "id": "s32b", "label": "Demand proof before taking another step", "targetSceneId": "s34_father_memory", "effects": "xp += 12; truths += 1" },
+          { "id": "s32c", "label": "Ask Li Wei whether this feels like a trap", "targetSceneId": "s39_liwei_confession", "effects": "xp += 10" },
+          { "id": "s32d", "label": "Turn back toward the generals and warn them", "targetSceneId": "s40_council_of_generals", "effects": "xp += 10; xuanTrust += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s33_yuren_reveal",
+      "title": "Your Father, Called the Black Flood",
+      "body": "In a ruined watchhall lit by storm lanterns, Shien finally meets the figure the kingdom blamed for flood, revolt, and vanished garrisons. The man is older, harder, and far more tired than the legends, yet when he speaks Shien's childhood nickname, every rehearsed accusation collapses. Yu Ren did not die. He became a lie useful enough for rulers to keep alive.",
+      "bonusText": "Yu Ren says the kingdom did not merely betray him; it needed him monstrous so no one would ask what he had tried to stop.",
+      "bonusCondition": "truths >= 4",
+      "tags": ["yu-ren", "father", "reveal"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#111827",
+      "position": { "x": 5060, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s33a", "label": "Listen when Yu Ren says he is your father", "targetSceneId": "s34_father_memory", "effects": "xp += 15; fatherKnown = true; yurenTrust += 1; truths += 1; thirdMarks += 1" },
+          { "id": "s33b", "label": "Accuse him of bringing famine with him", "targetSceneId": "s34_father_memory", "effects": "xp += 12; fatherKnown = true" },
+          { "id": "s33c", "label": "Ask why the kingdom erased his name", "targetSceneId": "s35_archive_of_edicts", "effects": "xp += 15; fatherKnown = true; truths += 1" },
+          { "id": "s33d", "label": "Leave with the truth but not forgiveness", "targetSceneId": "s38_road_to_mafong", "effects": "xp += 10; fatherKnown = true" }
+        ]
+      }
+    },
+    {
+      "id": "s34_father_memory",
+      "title": "Memory of Betrayal",
+      "body": "Yu Ren shows Shien the memory of a campaign the kingdom still teaches as noble victory. In the memory, engineers divert relief grain, generals defend the order, and Yu Ren breaks rank when he discovers villages starved to preserve ration panic. The Black Flood was born not from hunger for power, but from refusal to keep helping power feed on hunger.",
+      "tags": ["memory", "betrayal", "yu-ren"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#374151",
+      "position": { "x": 5280, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s34a", "label": "Believe the memory of betrayal", "targetSceneId": "s35_archive_of_edicts", "effects": "xp += 12; yurenTrust += 1; truths += 1" },
+          { "id": "s34b", "label": "Believe only what records can prove", "targetSceneId": "s35_archive_of_edicts", "effects": "xp += 12" },
+          { "id": "s34c", "label": "Ask what role the Water Dragon played", "targetSceneId": "s43_dragon_sanctuary_approach", "effects": "xp += 12; dragonTrust += 1; truths += 1" },
+          { "id": "s34d", "label": "Ask how the famine can end without civil war", "targetSceneId": "s37_choice_of_oaths", "effects": "xp += 12; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s35_archive_of_edicts",
+      "title": "Edicts from the First Emperor",
+      "body": "The sealed edicts are not policy notes; they are design documents for recurring crisis. The first emperor discovered that hunger made populations obedient, that flood damage justified emergency authority, and that controlled scarcity allowed the throne to appear necessary every generation. Shuǐ Guó was not merely governed through famine; famine helped build it.",
+      "tags": ["emperor", "edicts", "truth"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#7c2d12",
+      "position": { "x": 5500, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s35a", "label": "Read the ration laws line by line", "targetSceneId": "s36_bell_of_yushu", "effects": "xp += 15; truths += 1; emperorTruth = true" },
+          { "id": "s35b", "label": "Compare Xuan's orders with old decrees", "targetSceneId": "s39_liwei_confession", "effects": "xp += 15; xuanTrust += 1; truths += 1" },
+          { "id": "s35c", "label": "Copy evidence for the people, not the court", "targetSceneId": "s36_bell_of_yushu", "effects": "xp += 15; peopleTrust += 1" },
+          { "id": "s35d", "label": "Hide nothing and carry every record onward", "targetSceneId": "s36_bell_of_yushu", "effects": "xp += 12; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s36_bell_of_yushu",
+      "title": "When the Bell Calls All Sides to War",
+      "body": "The great bell of Yu Shu rings not for prayer but for mobilization. General Xuan summons loyal soldiers to Ma Fong, the Black Flood calls its cells to converge, and old shrine lines awaken toward the sanctuary springs. Shien now stands at the point where one warning fractures into several possible futures.",
+      "tags": ["bell", "alignment", "yu-shu"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#1d4ed8",
+      "position": { "x": 5720, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s36a", "label": "Answer General Xuan's summons to Ma Fong", "targetSceneId": "s40_council_of_generals", "effects": "xp += 12; xuanTrust += 1" },
+          { "id": "s36b", "label": "Answer Yu Ren's call to the hidden camp", "targetSceneId": "s42_black_flood_camp", "effects": "xp += 12; yurenTrust += 1" },
+          { "id": "s36c", "label": "Follow the hidden routes to the Dragon Sanctuary", "targetSceneId": "s43_dragon_sanctuary_approach", "effects": "xp += 12; dragonTrust += 1" },
+          { "id": "s36d", "label": "Refuse every banner and plan your own path", "targetSceneId": "s45_third_path_planning", "effects": "xp += 12; thirdPath = true" },
+          { "id": "s36e", "label": "Try to call all sides to parley", "targetSceneId": "s51_true_route_conclave", "condition": "thirdMarks >= 4", "effects": "xp += 15; thirdPath = true" }
+        ]
+      }
+    },
+    {
+      "id": "s37_choice_of_oaths",
+      "title": "The Oaths Shien Can Still Choose",
+      "body": "Away from bell towers and commanders, Shien takes stock of what he knows and what he still refuses to become. Every road ahead asks for allegiance, but oaths taken too early tend to become cages. Before leaving Yu Shu, he can choose an ideal before he chooses a faction.",
+      "tags": ["oath", "alignment", "reflection"],
+      "chapter": "Chapter 3 - The Forgotten Truth",
+      "color": "#0f172a",
+      "position": { "x": 5500, "y": 360 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s37a", "label": "Swear to protect the realm from collapse", "targetSceneId": "s40_council_of_generals", "effects": "xp += 12; xuanTrust += 1" },
+          { "id": "s37b", "label": "Swear to break the corrupt order", "targetSceneId": "s42_black_flood_camp", "effects": "xp += 12; yurenTrust += 1" },
+          { "id": "s37c", "label": "Swear to restore balance between river and throne", "targetSceneId": "s43_dragon_sanctuary_approach", "effects": "xp += 12; dragonTrust += 1" },
+          { "id": "s37d", "label": "Swear to trust no ruler until the full truth is known", "targetSceneId": "s45_third_path_planning", "effects": "xp += 12; thirdPath = true" },
+          { "id": "s37e", "label": "Swear to reconcile blood, kingdom, and dragon", "targetSceneId": "s51_true_route_conclave", "condition": "thirdMarks >= 5", "effects": "xp += 15; thirdPath = true" }
+        ]
+      }
+    },
+    {
+      "id": "s38_road_to_mafong",
+      "title": "Roads Converging on Ma Fong",
+      "body": "By the time Shien descends from Yu Shu, every road leads toward Ma Fong, the military heart of Shuǐ Guó. Refugees, scouts, rebels, and quartermasters all move in the same direction for different reasons. It feels less like marching toward a city than toward a verdict.",
+      "tags": ["ma-fong", "roads", "war"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#78350f",
+      "position": { "x": 5940, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s38a", "label": "Ride with refugees to the military capital", "targetSceneId": "s40_council_of_generals", "effects": "xp += 10; peopleTrust += 1" },
+          { "id": "s38b", "label": "Slip into Yu Ren's lines before the siege", "targetSceneId": "s42_black_flood_camp", "effects": "xp += 10" },
+          { "id": "s38c", "label": "Detour to the sanctuary springs", "targetSceneId": "s43_dragon_sanctuary_approach", "effects": "xp += 10" },
+          { "id": "s38d", "label": "Use Bo Ren's tunnels beneath Ma Fong", "targetSceneId": "s45_third_path_planning", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s39_liwei_confession",
+      "title": "Li Wei's Confession",
+      "body": "At last Li Wei admits what his silence has protected: he once served in campaigns that kept suspiciously close count of hunger, loyalty, and flood losses. He did not build the system, but he benefited from its order until the numbers became faces he could not stop seeing. His confession offers Shien a choice between anger and use, between blame and repair.",
+      "tags": ["li-wei", "confession", "military"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#4b5563",
+      "position": { "x": 6160, "y": 140 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s39a", "label": "Forgive Li Wei and keep him close", "targetSceneId": "s40_council_of_generals", "effects": "xp += 12; xuanTrust += 1; thirdMarks += 1" },
+          { "id": "s39b", "label": "Demand he help expose General Xuan", "targetSceneId": "s45_third_path_planning", "effects": "xp += 12; truths += 1" },
+          { "id": "s39c", "label": "Send him to Yu Ren as living witness", "targetSceneId": "s42_black_flood_camp", "effects": "xp += 12; yurenTrust += 1" },
+          { "id": "s39d", "label": "Tell him to leave before more blood is spilled", "targetSceneId": "s40_council_of_generals", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s40_council_of_generals",
+      "title": "The Council of Ma Fong",
+      "body": "Ma Fong reeks of lamp oil, horse sweat, and ration fear. Inside its war halls, generals debate supply lines while pretending the starving villages beyond their walls are unfortunate arithmetic. General Xuan is not blind, but whether he is trapped, complicit, or both remains for Shien to discover.",
+      "tags": ["ma-fong", "council", "xuan"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#991b1b",
+      "position": { "x": 6380, "y": 140 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s40a", "label": "Warn Xuan that famine will break the army first", "targetSceneId": "s41_xuan_audience", "effects": "xp += 12; xuanTrust += 1; truths += 1" },
+          { "id": "s40b", "label": "Demand the granaries be opened to the poor", "targetSceneId": "s41_xuan_audience", "effects": "xp += 12; peopleTrust += 1; thirdMarks += 1" },
+          { "id": "s40c", "label": "Reveal evidence of noble profiteering", "targetSceneId": "s41_xuan_audience", "effects": "xp += 12; truths += 1" },
+          { "id": "s40d", "label": "Spy on the council and keep your own counsel", "targetSceneId": "s47_kingdom_route_battle", "effects": "xp += 10" }
+        ]
+      }
+    },
+    {
+      "id": "s41_xuan_audience",
+      "title": "General Xuan at Last",
+      "body": "General Xuan receives Shien without ceremony, as though he is too tired for theater and too practiced to show it. He admits the capital withheld news, denies engineering famine, and refuses to let Shuǐ Guó collapse into civil war while enemies circle. Whether he is a final shield against chaos or a polished face on an old machine depends on what Shien asks him to become.",
+      "tags": ["xuan", "audience", "politics"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#dc2626",
+      "position": { "x": 6600, "y": 140 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s41a", "label": "Stand with Xuan to preserve order", "targetSceneId": "s47_kingdom_route_battle", "effects": "xp += 15; xuanTrust += 1" },
+          { "id": "s41b", "label": "Challenge Xuan to admit the throne lied", "targetSceneId": "s45_third_path_planning", "effects": "xp += 15; truths += 1" },
+          { "id": "s41c", "label": "Ask Xuan to meet Yu Ren under truce", "targetSceneId": "s51_true_route_conclave", "effects": "xp += 15; thirdMarks += 1" },
+          { "id": "s41d", "label": "Leave the court and seek the Dragon Sanctuary", "targetSceneId": "s43_dragon_sanctuary_approach", "effects": "xp += 12; dragonTrust += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s42_black_flood_camp",
+      "title": "Camp of the Black Flood",
+      "body": "Yu Ren's camp is disciplined, underfed, and more humane than the kingdom's propaganda ever allowed. Here Shien sees rebels repairing wells, rationing fairly, and preparing for war they believe cannot be avoided. Revolution looks noble around cookfires and much harsher on the maps spread between commanders.",
+      "tags": ["black-flood", "camp", "revolution"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#111827",
+      "position": { "x": 6380, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s42a", "label": "Swear yourself to Yu Ren's revolt", "targetSceneId": "s48_black_flood_route_battle", "effects": "xp += 15; yurenTrust += 2" },
+          { "id": "s42b", "label": "Demand the rebels spare civilians above all else", "targetSceneId": "s48_black_flood_route_battle", "effects": "xp += 15; yurenTrust += 1; thirdMarks += 1" },
+          { "id": "s42c", "label": "Steal the war maps to keep options open", "targetSceneId": "s45_third_path_planning", "effects": "xp += 15; truths += 1" },
+          { "id": "s42d", "label": "Beg Yu Ren to meet Xuan in peace", "targetSceneId": "s51_true_route_conclave", "effects": "xp += 15; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s43_dragon_sanctuary_approach",
+      "title": "Approach to the Dragon Sanctuary",
+      "body": "The sanctuary lies where public roads refuse to map the world correctly. Water climbs uphill in silver threads, reeds whisper in no wind, and carved markers warn that the dragon judges intent as quickly as trespass. Nature in this place is not innocent, but it is honest.",
+      "tags": ["dragon", "sanctuary", "nature"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#0f766e",
+      "position": { "x": 6380, "y": 460 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s43a", "label": "Enter the flooded canyon alone", "targetSceneId": "s49_dragon_route_trial", "effects": "xp += 15" },
+          { "id": "s43b", "label": "Let Xiao Feng read the sanctuary vows", "targetSceneId": "s49_dragon_route_trial", "effects": "xp += 15" },
+          { "id": "s43c", "label": "Offer the river blessing at the gate", "targetSceneId": "s49_dragon_route_trial", "effects": "xp += 15; riverBlessing = true; dragonTrust += 1" },
+          { "id": "s43d", "label": "Search the outer shrine network first", "targetSceneId": "s44_ancient_shrine_network", "effects": "xp += 15" }
+        ]
+      }
+    },
+    {
+      "id": "s44_ancient_shrine_network",
+      "title": "Network of Forgotten Shrines",
+      "body": "Three linked shrines ring the sanctuary like locks around an older promise. Each contains evidence that guardians, monks, and river wardens once cooperated to restrain something below the throne, then slowly stopped speaking of it in the same language. Repairing these shrines may not end the war, but it may change what survives it.",
+      "tags": ["shrines", "secret", "dragon"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#0d9488",
+      "position": { "x": 6600, "y": 460 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s44a", "label": "Rekindle all three shrine braziers", "targetSceneId": "s49_dragon_route_trial", "effects": "xp += 15; dragonTrust += 1; thirdMarks += 1" },
+          { "id": "s44b", "label": "Read the drowned oaths of the guardians", "targetSceneId": "s49_dragon_route_trial", "effects": "xp += 15; truths += 1" },
+          { "id": "s44c", "label": "Send companions to spread food caches nearby", "targetSceneId": "s45_third_path_planning", "effects": "xp += 15; peopleTrust += 1" },
+          { "id": "s44d", "label": "Use the shrines to summon all factions to one place", "targetSceneId": "s51_true_route_conclave", "effects": "xp += 18; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s45_third_path_planning",
+      "title": "Planning the Third Path",
+      "body": "Shien steps away from crowns, banners, and bloodline claims long enough to ask the question everyone else treats as weakness: what if every side is partly right and catastrophically incomplete? Bo Ren offers routes, Mei Lin offers evidence, Li Wei offers logistics, and Xiao Feng offers prophecy. The third path is not peace by wish; it is strategy against momentum.",
+      "tags": ["third-path", "planning", "independent"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#1f2937",
+      "position": { "x": 6820, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s45a", "label": "Infiltrate Ma Fong archives with Bo Ren", "targetSceneId": "s50_independent_route_heist", "effects": "xp += 15; truths += 1" },
+          { "id": "s45b", "label": "Gather testimony from refugees and soldiers", "targetSceneId": "s50_independent_route_heist", "effects": "xp += 15; peopleTrust += 1" },
+          { "id": "s45c", "label": "Ask Mei Lin to trace the blight to the catacombs", "targetSceneId": "s50_independent_route_heist", "effects": "xp += 15; truths += 1" },
+          { "id": "s45d", "label": "Prepare a parley between Xuan and Yu Ren", "targetSceneId": "s51_true_route_conclave", "condition": "thirdMarks >= 4", "effects": "xp += 18" }
+        ]
+      }
+    },
+    {
+      "id": "s47_kingdom_route_battle",
+      "title": "South Breach of Ma Fong",
+      "body": "War arrives with drums and ration carts in equal measure. Shien fights for the kingdom route beneath Ma Fong's walls while hearing the rebels cry for justice from the other side. Even the most ordered line of spears cannot hide that every soldier in this battle was fed by a system that starved someone else.",
+      "tags": ["kingdom-route", "battle", "ma-fong"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#b91c1c",
+      "position": { "x": 7040, "y": 120 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s47a", "label": "Lead the shield wall at the south breach", "targetSceneId": "s53_catacomb_entry", "effects": "xp += 18; xuanTrust += 1" },
+          { "id": "s47b", "label": "Evacuate civilians before the assault", "targetSceneId": "s53_catacomb_entry", "effects": "xp += 18; peopleTrust += 2; thirdMarks += 1" },
+          { "id": "s47c", "label": "Hunt the general directing the Black Flood vanguard", "targetSceneId": "s55_general_black_flood", "effects": "xp += 18" },
+          { "id": "s47d", "label": "Break away and search the catacombs beneath the fort", "targetSceneId": "s53_catacomb_entry", "effects": "xp += 16; truths += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s48_black_flood_route_battle",
+      "title": "The Rebel Push Through Ma Fong",
+      "body": "On the Black Flood route, Shien learns that righteous revolt still smells like smoke, blood, and snapped prayer ropes. Yu Ren's people strike granaries, engine towers, and guard posts with disciplined fury, but even just wars can become hungry wars if no one reins them in. The rebellion needs a conscience as badly as it needs victory.",
+      "tags": ["black-flood-route", "battle", "revolt"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#111827",
+      "position": { "x": 7040, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s48a", "label": "Seize the granaries for the starving", "targetSceneId": "s53_catacomb_entry", "effects": "xp += 18; yurenTrust += 1; peopleTrust += 1" },
+          { "id": "s48b", "label": "Strike directly at Xuan's war engines", "targetSceneId": "s53_catacomb_entry", "effects": "xp += 18" },
+          { "id": "s48c", "label": "Duel the kingdom champion at the causeway", "targetSceneId": "s55_general_black_flood", "effects": "xp += 18" },
+          { "id": "s48d", "label": "Slip away to learn what even Yu Ren does not know", "targetSceneId": "s54_first_emperor_record", "effects": "xp += 16; truths += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s49_dragon_route_trial",
+      "title": "Trial Before the Water Dragon",
+      "body": "The Water Dragon is vast, ancient, and less interested in human innocence than human patterns. It shows Shien rivers choked by dams, villages abandoned for quotas, and forests cut to feed war machines that never seem full. To earn the dragon's aid, Shien must prove he wants more than a new master sitting in an old place.",
+      "tags": ["dragon-route", "trial", "water-dragon"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#0f766e",
+      "position": { "x": 7040, "y": 480 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s49a", "label": "Accept the trial of memory", "targetSceneId": "s56_corrupted_water_dragon", "effects": "xp += 20; dragonTrust += 1; truths += 1" },
+          { "id": "s49b", "label": "Accept the trial of sacrifice", "targetSceneId": "s56_corrupted_water_dragon", "effects": "xp += 20; thirdMarks += 1" },
+          { "id": "s49c", "label": "Beg the dragon to spare the innocent cities", "targetSceneId": "s56_corrupted_water_dragon", "effects": "xp += 20; peopleTrust += 1" },
+          { "id": "s49d", "label": "Ask the dragon about the first emperor", "targetSceneId": "s54_first_emperor_record", "effects": "xp += 18; truths += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s50_independent_route_heist",
+      "title": "Vault Heist Under Ma Fong",
+      "body": "The independent route takes Shien through cisterns, archive shafts, and smugglers' vents beneath the military capital. It is not as glorious as war, but perhaps more honest: in hidden rooms, one can see the ledgers and seals that actually move kingdoms. Here truth is not debated; it is stored in numbered boxes.",
+      "tags": ["independent-route", "heist", "ma-fong"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#475569",
+      "position": { "x": 7260, "y": 300 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s50a", "label": "Steal the archive key from the vault", "targetSceneId": "s54_first_emperor_record", "effects": "xp += 18; truths += 1; emperorTruth = true" },
+          { "id": "s50b", "label": "Slip through the cistern into the catacombs", "targetSceneId": "s53_catacomb_entry", "effects": "xp += 18" },
+          { "id": "s50c", "label": "Publish the stolen evidence across the camps", "targetSceneId": "s53_catacomb_entry", "effects": "xp += 18; peopleTrust += 2" },
+          { "id": "s50d", "label": "Retreat to the last shrine and prepare a third path", "targetSceneId": "s60_last_shrine", "effects": "xp += 18; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s51_true_route_conclave",
+      "title": "Conclave of River, Sword, and Blood",
+      "body": "Against all reasonable odds, Shien gathers rivals who expected to meet only on battlefields. Xuan arrives armored but weary, Yu Ren arrives armed but listening, and the sanctuary witnesses refuse to bless a lie for either side. The conclave does not erase history; it forces history into the same room.",
+      "tags": ["true-route", "conclave", "parley"],
+      "chapter": "Chapter 4 - The Fall of the Throne",
+      "color": "#f59e0b",
+      "position": { "x": 7260, "y": 140 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s51a", "label": "Bring Xuan, Yu Ren, and Mei Lin into one chamber", "targetSceneId": "s60_last_shrine", "effects": "xp += 20; thirdMarks += 1" },
+          { "id": "s51b", "label": "Ask Xiao Feng to witness a binding oath", "targetSceneId": "s60_last_shrine", "effects": "xp += 20; thirdMarks += 1" },
+          { "id": "s51c", "label": "Demand every faction descend together into the catacombs", "targetSceneId": "s53_catacomb_entry", "effects": "xp += 20; peopleTrust += 1; thirdMarks += 1" },
+          { "id": "s51d", "label": "Seek the last shrine before any throne is touched", "targetSceneId": "s60_last_shrine", "effects": "xp += 20; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s53_catacomb_entry",
+      "title": "Entry to the Capital Catacombs",
+      "body": "Beneath the conflict above lies the older architecture of control: dry stairs for emperors, flooded channels for engineers, iron ladders for those who cleaned the system and never appeared in its histories. The catacombs smell like wet grain and old fear. Shien is finally close enough to hear the thing beneath the throne breathing.",
+      "tags": ["catacombs", "capital", "final-arc"],
+      "chapter": "Chapter 5 - Beneath the Throne",
+      "color": "#374151",
+      "position": { "x": 7480, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s53a", "label": "Follow the dry imperial stairs", "targetSceneId": "s54_first_emperor_record", "effects": "xp += 12" },
+          { "id": "s53b", "label": "Follow the flooded channel beneath the throne", "targetSceneId": "s57_hall_of_masks", "effects": "xp += 12" },
+          { "id": "s53c", "label": "Ask companions to hold the exit while you descend", "targetSceneId": "s54_first_emperor_record", "effects": "xp += 10" },
+          { "id": "s53d", "label": "Search for the heartbeat of the blight", "targetSceneId": "s59_devourer_antechamber", "effects": "xp += 12; truths += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s54_first_emperor_record",
+      "title": "Record of the First Emperor",
+      "body": "At the root of the stairs, Shien finds the oldest surviving confession in Shuǐ Guó: the first emperor discovered an ancient entity beneath the capital and learned that fear, scarcity, and obedient relief would keep both throne and monster fed. Every cycle of famine reinforced imperial necessity. The kingdom's greatest stability was built on a buried appetite.",
+      "bonusText": "The record uses one title over and over for the entity below: the Devourer of Harvests.",
+      "bonusCondition": "truths >= 5",
+      "tags": ["first-emperor", "record", "devourer"],
+      "chapter": "Chapter 5 - Beneath the Throne",
+      "color": "#7c2d12",
+      "position": { "x": 7700, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s54a", "label": "Read the record aloud to your companions", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 18; truths += 1; emperorTruth = true; devourerTruth = true" },
+          { "id": "s54b", "label": "Copy the record and hide it from kings and rebels alike", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 16; truths += 1; devourerTruth = true" },
+          { "id": "s54c", "label": "Burn the record and trust only living testimony", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 14" },
+          { "id": "s54d", "label": "Trace the ration sigils deeper underground", "targetSceneId": "s59_devourer_antechamber", "effects": "xp += 18; devourerTruth = true" }
+        ]
+      }
+    },
+    {
+      "id": "s55_general_black_flood",
+      "title": "General of the Black Flood",
+      "body": "In one route, the final military obstacle is a legendary commander whose loyalty has curdled into fanatic certainty. He believes the only way to stop cycles of hunger is to seize total control long enough to starve the machine instead. Shien sees in him the danger of becoming right about the system and wrong about everything else.",
+      "tags": ["boss", "general", "civil-war"],
+      "chapter": "Chapter 5 - Beneath the Throne",
+      "color": "#991b1b",
+      "position": { "x": 7700, "y": 80 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s55a", "label": "Defeat the general and spare the survivors", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 30; peopleTrust += 1; thirdMarks += 1" },
+          { "id": "s55b", "label": "Break the general's banner and leave no witness", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 30" },
+          { "id": "s55c", "label": "Convince the general the throne and revolt are both being used", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 28; truths += 1" },
+          { "id": "s55d", "label": "Let Li Wei challenge him while you reach the deeper vaults", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 26" }
+        ]
+      }
+    },
+    {
+      "id": "s56_corrupted_water_dragon",
+      "title": "The Corrupted Water Dragon",
+      "body": "What the sanctuary hid was not a perfect guardian, but a guardian slowly poisoned by centuries of imperial siphoning. The Water Dragon now thrashes between wrath and memory, vast enough to drown a province and wounded enough to beg for release in the language of storms. Shien must choose whether to kill a symbol or save a truth.",
+      "tags": ["boss", "water-dragon", "dragon-route"],
+      "chapter": "Chapter 5 - Beneath the Throne",
+      "color": "#0f766e",
+      "position": { "x": 7700, "y": 460 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s56a", "label": "Purify the dragon with shrine water", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 32; dragonTrust += 2; thirdMarks += 1" },
+          { "id": "s56b", "label": "Slay the dragon and claim its fearsome strength", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 32" },
+          { "id": "s56c", "label": "Endure the dragon's memories until it recognizes the old pact", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 30; truths += 1; dragonTrust += 1" },
+          { "id": "s56d", "label": "Let Xiao Feng chant the lost sutra while you defend him", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 28" }
+        ]
+      }
+    },
+    {
+      "id": "s57_hall_of_masks",
+      "title": "Hall of Masks",
+      "body": "The flooded branch of the catacombs leads through a hall where masks of emperors, rebels, generals, guardians, and peasants hang in endless rows. Some show Shien a future version of himself wearing them. The hall's lesson is cruel and useful: every righteous story can harden into a mask once it wants power to stop listening.",
+      "tags": ["catacombs", "masks", "vision"],
+      "chapter": "Chapter 5 - Beneath the Throne",
+      "color": "#334155",
+      "position": { "x": 7920, "y": 320 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s57a", "label": "Face the mask showing you as a tyrant", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 16; truths += 1" },
+          { "id": "s57b", "label": "Face the mask showing your father's fall", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 16; yurenTrust += 1" },
+          { "id": "s57c", "label": "Face the mask showing the kingdom starving forever", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 16; peopleTrust += 1" },
+          { "id": "s57d", "label": "Smash every mask and keep walking", "targetSceneId": "s58_throne_of_tides", "effects": "xp += 12" }
+        ]
+      }
+    },
+    {
+      "id": "s58_throne_of_tides",
+      "title": "Throne of Tides",
+      "body": "The old throne chamber is partly natural cave, partly imperial architecture, and entirely blasphemy against common sense. Channels in the floor carry water, blood, and grain dust toward a sealed well beneath the throne. Here Shien finally sees that kingship in Shuǐ Guó was engineered around feeding something hidden rather than serving anyone living.",
+      "tags": ["throne", "capital", "revelation"],
+      "chapter": "Chapter 5 - Beneath the Throne",
+      "color": "#1d4ed8",
+      "position": { "x": 8140, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s58a", "label": "Touch the throne and feel the old engine waking", "targetSceneId": "s59_devourer_antechamber", "effects": "xp += 18; emperorTruth = true" },
+          { "id": "s58b", "label": "Reject the throne and search below it", "targetSceneId": "s59_devourer_antechamber", "effects": "xp += 18; thirdMarks += 1" },
+          { "id": "s58c", "label": "Call Xuan or Yu Ren to witness what you found", "targetSceneId": "s59_devourer_antechamber", "effects": "xp += 18; truths += 1" },
+          { "id": "s58d", "label": "Listen for the devourer's breath below stone", "targetSceneId": "s59_devourer_antechamber", "effects": "xp += 18; devourerTruth = true" }
+        ]
+      }
+    },
+    {
+      "id": "s59_devourer_antechamber",
+      "title": "Antechamber of the Devourer",
+      "body": "The antechamber walls are glazed with old grain offerings fused by moisture and time. Every dynasty added new locks, new slogans, and new excuses, but none stopped feeding the hollow below because none wanted to lose the authority crisis gave them. The Devourer of Harvests was never simply hidden; it was institutionalized.",
+      "tags": ["devourer", "antechamber", "truth"],
+      "chapter": "Chapter 5 - Beneath the Throne",
+      "color": "#7f1d1d",
+      "position": { "x": 8360, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s59a", "label": "Break the locks feeding the ancient chamber", "targetSceneId": "s61_devourer_core", "effects": "xp += 20; devourerTruth = true" },
+          { "id": "s59b", "label": "Search the side crypts for one last shrine key", "targetSceneId": "s60_last_shrine", "effects": "xp += 20" },
+          { "id": "s59c", "label": "Offer blood to see the final truth clearly", "targetSceneId": "s61_devourer_core", "effects": "xp += 20; truths += 1" },
+          { "id": "s59d", "label": "Pull your companions close and swear no one rules alone again", "targetSceneId": "s60_last_shrine", "effects": "xp += 20; thirdMarks += 1" }
+        ]
+      }
+    },
+    {
+      "id": "s60_last_shrine",
+      "title": "The Last Shrine Beneath the Capital",
+      "body": "Hidden off the antechamber lies a shrine no public history admits exists. Its basin is fed by the same underground water that once sustained the capital before emperors diverted it toward control. If relit, the shrine might weaken the cycle enough for a different ending to become possible.",
+      "tags": ["last-shrine", "secret", "true-route"],
+      "chapter": "Chapter 5 - Beneath the Throne",
+      "color": "#0f766e",
+      "position": { "x": 8580, "y": 80 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s60a", "label": "Rekindle the last shrine flame", "targetSceneId": "s61_devourer_core", "effects": "xp += 22; shrineComplete = true; thirdMarks += 1" },
+          { "id": "s60b", "label": "Ask the river spirits to witness your choice", "targetSceneId": "s61_devourer_core", "effects": "xp += 22; riverBlessing = true" },
+          { "id": "s60c", "label": "Let each companion hold one corner of the rite", "targetSceneId": "s61_devourer_core", "effects": "xp += 22; shrineComplete = true; thirdMarks += 1" },
+          { "id": "s60d", "label": "Carry the shrine key back without using it", "targetSceneId": "s61_devourer_core", "effects": "xp += 18" }
+        ]
+      }
+    },
+    {
+      "id": "s61_devourer_core",
+      "title": "The Devourer of Harvests",
+      "body": "At the bottom of the capital's oldest shaft, Shien finally faces the thing every famine cycle served. The Devourer is not a beast in the simple sense; it is a root-mass of mouths, memory, and need, swollen by centuries of fear administered as policy. To kill it is one task. To decide what replaces the system that fed it is the harder one.",
+      "tags": ["final-boss", "devourer", "finale"],
+      "chapter": "Chapter 5 - Beneath the Throne",
+      "color": "#111827",
+      "position": { "x": 8800, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s61a", "label": "Strike at the devourer with kingdom steel", "targetSceneId": "s62_kingdom_epilogue", "effects": "xp += 35" },
+          { "id": "s61b", "label": "Cut its heart with revolt fire and bitter truth", "targetSceneId": "s63_blackflood_epilogue", "effects": "xp += 35" },
+          { "id": "s61c", "label": "Chain it with dragon water and root-song", "targetSceneId": "s64_dragon_epilogue", "effects": "xp += 35" },
+          { "id": "s61d", "label": "Study its hunger and refuse every faction's claim", "targetSceneId": "s65_independent_epilogue", "effects": "xp += 35" },
+          { "id": "s61e", "label": "Unite oath, blood, and shrine flame against it", "targetSceneId": "s66_true_epilogue", "condition": "thirdMarks >= 6", "effects": "xp += 40" }
+        ]
+      }
+    },
+    {
+      "id": "s62_kingdom_epilogue",
+      "title": "After the Throne - Kingdom Route",
+      "body": "The Devourer is broken, but the kingdom remains. Granaries, commands, courts, and roads still need someone to direct them, and every surviving noble suddenly remembers how much they love order. On this route, Shien must decide what kind of order deserves to survive.",
+      "tags": ["epilogue", "kingdom-route"],
+      "chapter": "Endings",
+      "color": "#2563eb",
+      "position": { "x": 9020, "y": 80 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s62a", "label": "Rebuild with mercy and open granaries", "targetSceneId": "e01_hero_of_the_rivers" },
+          { "id": "s62b", "label": "Serve as shield of the restored court", "targetSceneId": "e02_kingdom_protector", "condition": "xuanTrust >= 3" },
+          { "id": "s62c", "label": "Accept command of the army in troubled times", "targetSceneId": "e03_military_regent", "condition": "xp >= 160" },
+          { "id": "s62d", "label": "Sit upon the hidden throne yourself", "targetSceneId": "e04_hidden_emperor", "condition": "emperorTruth == true" }
+        ]
+      }
+    },
+    {
+      "id": "s63_blackflood_epilogue",
+      "title": "After the Throne - Black Flood Route",
+      "body": "The old system lies in pieces and the rebels stand where officials once stood. Revolution has won the room, but not yet the future. Shien must decide whether upheaval becomes reform, justice, or a new appetite wearing sharper ideals.",
+      "tags": ["epilogue", "black-flood-route"],
+      "chapter": "Endings",
+      "color": "#111827",
+      "position": { "x": 9020, "y": 220 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s63a", "label": "Stand beside Yu Ren and reform the realm", "targetSceneId": "e05_black_flood_heir" },
+          { "id": "s63b", "label": "Turn the rebellion into a people's assembly", "targetSceneId": "e06_revolution_of_rain", "condition": "peopleTrust >= 4" },
+          { "id": "s63c", "label": "Take the flood banner for yourself", "targetSceneId": "e07_tyrant_of_the_dikes", "condition": "xp >= 180" },
+          { "id": "s63d", "label": "Burn every throne to break the cycle brutally", "targetSceneId": "e08_destroyer_of_thrones" }
+        ]
+      }
+    },
+    {
+      "id": "s64_dragon_epilogue",
+      "title": "After the Throne - Dragon Route",
+      "body": "Nature has a voice in Shuǐ Guó again, and it is older than every crown above the capital. The dragon remembers every broken river law and every drowned village oath. Shien must decide whether balance means coexistence, retreat, vengeance, or devotion.",
+      "tags": ["epilogue", "dragon-route"],
+      "chapter": "Endings",
+      "color": "#0f766e",
+      "position": { "x": 9020, "y": 360 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s64a", "label": "Forge a covenant between city and river", "targetSceneId": "e09_dragon_compact" },
+          { "id": "s64b", "label": "Let forests reclaim the ruined frontier", "targetSceneId": "e10_nature_reclaimed" },
+          { "id": "s64c", "label": "Ride with the dragon beyond the eastern sea", "targetSceneId": "e11_dragon_rider", "condition": "dragonTrust >= 3" },
+          { "id": "s64d", "label": "Remain at the sanctuary as its eternal keeper", "targetSceneId": "e12_eternal_watcher" }
+        ]
+      }
+    },
+    {
+      "id": "s65_independent_epilogue",
+      "title": "After the Throne - Independent Route",
+      "body": "No faction owns the ending, which means none can claim the full legitimacy of victory. Shien possesses truth, surviving witnesses, and enough scars to distrust any simple answer. On the independent route, he must decide whether his power is best used by leaving, writing, building, or guarding.",
+      "tags": ["epilogue", "independent-route"],
+      "chapter": "Endings",
+      "color": "#475569",
+      "position": { "x": 9020, "y": 500 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s65a", "label": "Leave Shuǐ Guó and carry its warning abroad", "targetSceneId": "e13_wanderer_of_salt_roads" },
+          { "id": "s65b", "label": "Stay and write the true history", "targetSceneId": "e14_scholar_of_tides", "condition": "truths >= 7" },
+          { "id": "s65c", "label": "Build a trade league that feeds the hungry first", "targetSceneId": "e15_merchant_empire", "condition": "boRen == true" },
+          { "id": "s65d", "label": "Guard the catacombs where the old machine slept", "targetSceneId": "e16_last_guardian" }
+        ]
+      }
+    },
+    {
+      "id": "s66_true_epilogue",
+      "title": "After the Throne - True Route",
+      "body": "On the true route, Shien has done the hardest thing in Shuǐ Guó: he has created a future in which no single old story gets to pretend it was enough. Peace, reform, memory, and sacrifice now depend on what covenant he asks the survivors to keep. A kingdom can be saved and still be unworthy unless rebuilt differently.",
+      "tags": ["epilogue", "true-route"],
+      "chapter": "Endings",
+      "color": "#f59e0b",
+      "position": { "x": 9020, "y": 640 },
+      "transition": {
+        "type": "choices",
+        "choices": [
+          { "id": "s66a", "label": "Forge peace between Xuan and Yu Ren", "targetSceneId": "e17_peacekeeper_of_ma_fong" },
+          { "id": "s66b", "label": "Become guardian, never ruler", "targetSceneId": "e18_guardian_of_shui_guo", "condition": "shrineComplete == true" },
+          { "id": "s66c", "label": "Carry the truth to neighboring kingdoms", "targetSceneId": "e19_savior_of_nations", "condition": "truths >= 8" },
+          { "id": "s66d", "label": "Create a new covenant of river and people", "targetSceneId": "e20_legend_of_shui_guo", "condition": "allies >= 4" }
+        ]
+      }
+    },
+    {
+      "id": "e01_hero_of_the_rivers",
+      "title": "Ending - Hero of the Rivers",
+      "body": "Shien forces the granaries open, publishes enough truth to shame the surviving court, and spends the first harvest season riding from canal town to canal town making sure relief truly arrives. He becomes beloved not because he sat the throne, but because he never did. In Shuǐ Guó, that restraint becomes its own kind of legend.",
+      "tags": ["ending", "good", "kingdom"],
+      "chapter": "Endings",
+      "color": "#16a34a",
+      "position": { "x": 9460, "y": 20 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e02_kingdom_protector",
+      "title": "Ending - Kingdom Protector",
+      "body": "By trusting Xuan just enough and forcing him to trust in return, Shien helps preserve Shuǐ Guó without preserving every lie that built it. He becomes the protector of a wounded state whose survival depends on uncomfortable reform. It is not the cleanest ending, but it spares the most fragile lives in the short term.",
+      "tags": ["ending", "order", "kingdom"],
+      "chapter": "Endings",
+      "color": "#22c55e",
+      "position": { "x": 9460, "y": 100 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e03_military_regent",
+      "title": "Ending - Military Regent",
+      "body": "Experience, crisis, and necessity push Shien into command. He rules not as emperor but as regent over a state too unstable for ceremony, too frightened for idealism, and too exhausted to resist him. Peace returns, but it wears armor, and everyone knows armor can forget when to come off.",
+      "tags": ["ending", "power", "neutral"],
+      "chapter": "Endings",
+      "color": "#f59e0b",
+      "position": { "x": 9460, "y": 180 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e04_hidden_emperor",
+      "title": "Ending - Hidden Emperor",
+      "body": "Knowing how the old machine worked, Shien chooses to claim it rather than destroy it fully. He tells himself he will use secrecy to prevent worse tyrants from rising, but secrecy has always said that. The famine cycles end for a time, yet Shuǐ Guó learns too late that a hidden emperor still counts as an emperor.",
+      "tags": ["ending", "dark", "emperor"],
+      "chapter": "Endings",
+      "color": "#b91c1c",
+      "position": { "x": 9460, "y": 260 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e05_black_flood_heir",
+      "title": "Ending - Black Flood Heir",
+      "body": "Shien stands beside Yu Ren as the old order falls and helps transform rebellion into the foundation of a new state. Father and child do not erase their years apart, but they turn shared pain into a disciplined reconstruction of the realm. The Black Flood becomes not a terror, but a remembered purge that made room for justice.",
+      "tags": ["ending", "revolution", "family"],
+      "chapter": "Endings",
+      "color": "#16a34a",
+      "position": { "x": 9460, "y": 340 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e06_revolution_of_rain",
+      "title": "Ending - Revolution of Rain",
+      "body": "Instead of trading one command structure for another, Shien and the rebels turn local councils, ration boards, and village voices into the new architecture of Shuǐ Guó. It is messier, slower, and constantly threatened by opportunists, but famine can no longer hide behind distant seals. Rain still falls unevenly, yet power no longer does.",
+      "tags": ["ending", "revolution", "people"],
+      "chapter": "Endings",
+      "color": "#22c55e",
+      "position": { "x": 9460, "y": 420 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e07_tyrant_of_the_dikes",
+      "title": "Ending - Tyrant of the Dikes",
+      "body": "Shien takes the flood banner, defeats every rival, and decides hunger can never rule the kingdom again because fear will rule first. Roads become efficient, theft becomes rare, and dissent disappears into labor camps beside the canals. The famine ends, but Shuǐ Guó learns that efficiency without mercy is only a cleaner form of ruin.",
+      "tags": ["ending", "dark", "tyrant"],
+      "chapter": "Endings",
+      "color": "#991b1b",
+      "position": { "x": 9460, "y": 500 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e08_destroyer_of_thrones",
+      "title": "Ending - Destroyer of Thrones",
+      "body": "Shien concludes that every throne in Shuǐ Guó is too stained to survive. Palaces burn, archives scatter, and the old capital is reduced to cautionary stone. The people are free of dynastic control, but also of the institutions that once coordinated river law, which leaves the future open and terrifying in equal measure.",
+      "tags": ["ending", "radical", "dark"],
+      "chapter": "Endings",
+      "color": "#7f1d1d",
+      "position": { "x": 9460, "y": 580 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e09_dragon_compact",
+      "title": "Ending - Dragon Compact",
+      "body": "Rather than enthrone nature over humanity or humanity over nature, Shien forces a covenant both can enforce. Rivers regain legal personhood, floodworks require guardian rites, and towns are rebuilt in cooperation with the sanctuary. It is the first arrangement in generations that treats balance as relationship rather than domination.",
+      "tags": ["ending", "dragon", "balance"],
+      "chapter": "Endings",
+      "color": "#16a34a",
+      "position": { "x": 9460, "y": 660 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e10_nature_reclaimed",
+      "title": "Ending - Nature Reclaimed",
+      "body": "Shien sides with the dragon hard enough that frontier towns are abandoned and old canal districts drown under deliberate restoration. Forests return, estuaries heal, and the land finally breathes free of imperial extraction. Humanity survives, but only where it learns humility quickly enough.",
+      "tags": ["ending", "dragon", "severe"],
+      "chapter": "Endings",
+      "color": "#15803d",
+      "position": { "x": 9680, "y": 660 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e11_dragon_rider",
+      "title": "Ending - Dragon Rider",
+      "body": "By earning the dragon's full trust, Shien leaves Shuǐ Guó not as ruler but as witness on the wing of myth. Together they travel the coastlines and inland rivers beyond the kingdom, warning other lands what famine and power can become when left married for too long. Shuǐ Guó loses a hero and gains a legend with a moving horizon.",
+      "tags": ["ending", "dragon", "legendary"],
+      "chapter": "Endings",
+      "color": "#0f766e",
+      "position": { "x": 9900, "y": 660 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e12_eternal_watcher",
+      "title": "Ending - Eternal Watcher",
+      "body": "Shien chooses to remain at the sanctuary and monitor the old systems forever. He becomes a living warning more than a public figure, part monk, part guardian, part self-chosen exile. Shuǐ Guó stabilizes, but he pays for that stability by stepping outside ordinary life altogether.",
+      "tags": ["ending", "dragon", "sacrifice"],
+      "chapter": "Endings",
+      "color": "#334155",
+      "position": { "x": 10120, "y": 660 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e13_wanderer_of_salt_roads",
+      "title": "Ending - Wanderer of Salt Roads",
+      "body": "With the crisis ended but no faction convincing enough to deserve him, Shien leaves Shuǐ Guó by trade road and fishing coast. He becomes the one who arrives in troubled places carrying a story others would rather call impossible. Some kingdoms welcome him. Others close their gates and later regret it.",
+      "tags": ["ending", "independent", "wanderer"],
+      "chapter": "Endings",
+      "color": "#16a34a",
+      "position": { "x": 9460, "y": 760 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e14_scholar_of_tides",
+      "title": "Ending - Scholar of Tides",
+      "body": "Shien remains in Shuǐ Guó long enough to write the first honest history its people have ever held in their own hands. The book is copied, banned, recopied, argued over, and eventually taught in the same schools that once hid the truth. It does not solve every hunger, but it ends the empire's monopoly on memory.",
+      "tags": ["ending", "independent", "scholar"],
+      "chapter": "Endings",
+      "color": "#22c55e",
+      "position": { "x": 9680, "y": 760 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e15_merchant_empire",
+      "title": "Ending - Merchant Empire",
+      "body": "With Bo Ren's routes and Shien's credibility, food networks become stronger than old noble monopolies ever were. Markets open under strict anti-hoarding law, river tolls are reworked, and a commerce-first commonwealth quietly replaces aristocratic famine games. It is practical, prosperous, and always in danger of learning greed too well.",
+      "tags": ["ending", "independent", "merchant"],
+      "chapter": "Endings",
+      "color": "#f59e0b",
+      "position": { "x": 9900, "y": 760 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e16_last_guardian",
+      "title": "Ending - Last Guardian",
+      "body": "Rather than rule the surface, Shien keeps watch where the empire once fed the Devourer. New governments rise above him, argue above him, and occasionally descend to ask for counsel they wish they did not need. He becomes the final guardian of the system's grave, respected by all and fully joined by none.",
+      "tags": ["ending", "independent", "guardian"],
+      "chapter": "Endings",
+      "color": "#475569",
+      "position": { "x": 10120, "y": 760 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e17_peacekeeper_of_ma_fong",
+      "title": "Ending - Peacekeeper of Ma Fong",
+      "body": "Shien forces Yu Ren and Xuan into an uneasy but binding settlement rooted in truth, public ration oversight, and shared disarmament of the old famine machine. Nobody leaves the table wholly satisfied, which is why the peace lasts. Shuǐ Guó survives because compromise finally becomes braver than purity.",
+      "tags": ["ending", "true-route", "peace"],
+      "chapter": "Endings",
+      "color": "#16a34a",
+      "position": { "x": 9460, "y": 860 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e18_guardian_of_shui_guo",
+      "title": "Ending - Guardian of Shuǐ Guó",
+      "body": "By restoring the last shrine and refusing every crown, Shien becomes the acknowledged guardian of the covenant between water, people, and state. He stands above politics without abandoning it, enforcing boundaries no ruler may cross again. The title is not glamorous, which is exactly why it can be trusted.",
+      "tags": ["ending", "true-route", "guardian"],
+      "chapter": "Endings",
+      "color": "#22c55e",
+      "position": { "x": 9680, "y": 860 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e19_savior_of_nations",
+      "title": "Ending - Savior of Nations",
+      "body": "Shien carries proof of Shuǐ Guó's cycles to neighboring kingdoms and sparks reforms beyond his homeland. What began as a warning to one realm becomes a continental reckoning over how states manufacture desperation. He saves more than one nation, though each thanks him in a different language and with different levels of resentment.",
+      "tags": ["ending", "true-route", "legendary"],
+      "chapter": "Endings",
+      "color": "#0f766e",
+      "position": { "x": 9900, "y": 860 },
+      "transition": { "type": "ending" }
+    },
+    {
+      "id": "e20_legend_of_shui_guo",
+      "title": "Ending - Legend of Shuǐ Guó",
+      "body": "Shien keeps his companions alive, reconciles blood with truth, rejects the old machine, and builds a covenant that makes future famine politics far harder to resurrect. Yu Ren finds peace without vanishing from memory, the dragon returns to the sea without abandoning the land, and Shuǐ Guó learns how to survive without being terror-managed into obedience. Later generations remember many titles for Shien Yu, but one endures above the rest: the legend who ended hunger's throne.",
+      "tags": ["ending", "true-route", "best", "secret"],
+      "chapter": "Endings",
+      "color": "#facc15",
+      "position": { "x": 10120, "y": 860 },
+      "transition": { "type": "ending" }
+    }
+  ],
+  "access": {
+    "mode": "editable",
+    "passcodeProtected": false
+  }
+}

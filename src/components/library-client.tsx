@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BookOpenText, Copy, FileText, KeyRound, Pencil, Share2 } from "lucide-react";
+import { BookOpenText, Copy, EyeOff, FileText, KeyRound, Pencil, Share2, Trash2 } from "lucide-react";
 import { CreateStoryButton } from "@/components/create-story-button";
 import { ImportStoryButton } from "@/components/import-story-button";
 import { ShareStoryDialog } from "@/components/share-story-dialog";
 import { downloadJson } from "@/lib/download";
-import { getOrCreateStoryPasscode, listLibraryStories, saveStory, seedDemoStory } from "@/lib/storage";
+import { deleteStory, getOrCreateStoryPasscode, hideStory, listLibraryStories, saveStory, seedDemoStory } from "@/lib/storage";
 import { cloneStory, StoryDocument } from "@/lib/story";
 
 export function LibraryClient() {
@@ -39,6 +39,14 @@ export function LibraryClient() {
       note: "Keep this private. This password unlocks Read and Modify shared story files for this story.",
     });
   }
+  async function remove(story: StoryDocument) {
+    await deleteStory(story.id);
+    await refresh();
+  }
+  async function hide(story: StoryDocument) {
+    await hideStory(story.id);
+    await refresh();
+  }
 
   return (
     <section className="mt-8">
@@ -67,6 +75,8 @@ export function LibraryClient() {
                 <button className="button button-secondary px-3 py-2 text-sm" onClick={() => duplicate(story)}><Copy size={15} /> Duplicate</button>
                 <button className="button button-secondary px-3 py-2 text-sm" onClick={() => exportPassword(story)}><KeyRound size={15} /> Password</button>
                 <button className="button button-secondary px-3 py-2 text-sm" onClick={() => setSharingStory(story)}><Share2 size={15} /> Share</button>
+                <button className="button button-secondary px-3 py-2 text-sm" onClick={() => hide(story)}><EyeOff size={15} /> Hide</button>
+                <button className="button button-danger px-3 py-2 text-sm" onClick={() => remove(story)}><Trash2 size={15} /> Delete</button>
               </div>
             </article>
           ))}

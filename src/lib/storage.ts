@@ -43,6 +43,7 @@ export type AppSettings = {
   onboardingStatus: "new" | "started" | "skipped" | "never" | "complete";
   currentTutorial?: string;
   completedTutorials: string[];
+  hiddenStoryIds: string[];
   notifications: {
     storyUpdates: boolean;
     collaborationUpdates: boolean;
@@ -99,6 +100,7 @@ export const defaultSettings: AppSettings = {
   advancedMode: false,
   onboardingStatus: "new",
   completedTutorials: [],
+  hiddenStoryIds: [],
   notifications: {
     storyUpdates: true,
     collaborationUpdates: true,
@@ -144,6 +146,7 @@ function mergeSettings(saved?: Partial<AppSettings>): AppSettings {
       ...(saved?.advanced || {}),
     },
     completedTutorials: saved?.completedTutorials || defaultSettings.completedTutorials,
+    hiddenStoryIds: saved?.hiddenStoryIds || defaultSettings.hiddenStoryIds,
   };
 }
 
@@ -172,6 +175,12 @@ export async function listStories() {
   );
 }
 
+export async function listVisibleStories() {
+  const [stories, settings] = await Promise.all([listStories(), getSettings()]);
+  const hidden = new Set(settings.hiddenStoryIds);
+  return stories.filter((story) => !hidden.has(story.id));
+}
+
 export function isEditableStory(story: StoryDocument) {
   return story.access?.mode !== "view-only";
 }
@@ -181,7 +190,13 @@ export function isSharedStory(story: StoryDocument) {
 }
 
 export async function listLibraryStories() {
-  return (await listStories()).filter(isEditableStory);
+  return (await listVisibleStories()).filter(isEditableStory);
+}
+
+export async function listHiddenStories() {
+  const [stories, settings] = await Promise.all([listStories(), getSettings()]);
+  const hidden = new Set(settings.hiddenStoryIds);
+  return stories.filter((story) => hidden.has(story.id));
 }
 
 export async function getStory(id: string) {
@@ -208,6 +223,13 @@ export async function deleteStory(id: string) {
   const database = await db();
   await database.delete(STORE, id);
   await database.delete(PASSCODES, id);
+  const settings = await getSettings();
+  if (settings.hiddenStoryIds.includes(id)) {
+    await saveSettings({
+      ...settings,
+      hiddenStoryIds: settings.hiddenStoryIds.filter((storyId) => storyId !== id),
+    });
+  }
 }
 
 export async function clearStories() {
@@ -283,4 +305,18 @@ export async function markTutorialComplete(tutorialId: string) {
   const current = await getSettings();
   const completedTutorials = Array.from(new Set([...current.completedTutorials, tutorialId]));
   return saveSettings({ ...current, completedTutorials, currentTutorial: undefined });
+}
+
+export async function hideStory(storyId: string) {
+  const current = await getSettings();
+  if (current.hiddenStoryIds.includes(storyId)) return current;
+  return saveSettings({ ...current, hiddenStoryIds: [...current.hiddenStoryIds, storyId] });
+}
+
+export async function unhideStory(storyId: string) {
+  const current = await getSettings();
+  return saveSettings({
+    ...current,
+    hiddenStoryIds: current.hiddenStoryIds.filter((id) => id !== storyId),
+  });
 }

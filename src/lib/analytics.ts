@@ -18,21 +18,36 @@ export function analyzeStory(story: StoryDocument): StoryAnalytics {
     for (const target of sceneTargets(scene)) incoming.set(target, (incoming.get(target) || 0) + 1);
   }
   const sceneById = new Map(story.scenes.map((scene) => [scene.id, scene]));
-  const pathLengths: number[] = [];
-  function walk(sceneId: string, depth: number, seen = new Set<string>()) {
+  const pathMemo = new Map<string, { shortest: number; longest: number }>();
+
+  function measure(sceneId: string, visiting = new Set<string>()): { shortest: number; longest: number } {
+    if (pathMemo.has(sceneId)) return pathMemo.get(sceneId)!;
     const scene = sceneById.get(sceneId);
-    if (!scene || seen.has(sceneId)) {
-      pathLengths.push(depth);
-      return;
-    }
+    if (!scene) return { shortest: 0, longest: 0 };
+    if (visiting.has(sceneId)) return { shortest: 0, longest: 0 };
     if (scene.transition.type === "ending") {
-      pathLengths.push(depth + 1);
-      return;
+      const ending = { shortest: 1, longest: 1 };
+      pathMemo.set(sceneId, ending);
+      return ending;
     }
-    const nextSeen = new Set(seen).add(sceneId);
-    sceneTargets(scene).forEach((target) => walk(target, depth + 1, nextSeen));
+    const nextVisiting = new Set(visiting).add(sceneId);
+    const branches = sceneTargets(scene)
+      .map((target) => measure(target, nextVisiting))
+      .filter((result) => result.shortest > 0 || result.longest > 0);
+    if (!branches.length) {
+      const deadEnd = { shortest: 1, longest: 1 };
+      pathMemo.set(sceneId, deadEnd);
+      return deadEnd;
+    }
+    const measured = {
+      shortest: 1 + Math.min(...branches.map((branch) => branch.shortest)),
+      longest: 1 + Math.max(...branches.map((branch) => branch.longest)),
+    };
+    pathMemo.set(sceneId, measured);
+    return measured;
   }
-  walk(story.startSceneId, 0);
+
+  const { shortest, longest } = measure(story.startSceneId);
   return {
     scenes: story.scenes.length,
     choices: story.scenes.reduce((sum, scene) => sum + sceneTargets(scene).length, 0),
@@ -40,8 +55,8 @@ export function analyzeStory(story: StoryDocument): StoryAnalytics {
     bonusScenes: story.scenes.filter((scene) => scene.bonusText?.trim()).length,
     taggedScenes: story.scenes.filter((scene) => scene.tags?.length).length,
     chapters: new Set(story.scenes.map((scene) => scene.chapter).filter(Boolean)).size,
-    shortestPath: Math.min(...pathLengths),
-    longestPath: Math.max(...pathLengths),
+    shortestPath: shortest,
+    longestPath: longest,
     mergeScenes: [...incoming.values()].filter((count) => count > 1).length,
   };
 }

@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { BookOpenText, Download, GraduationCap, KeyRound, RotateCcw, Search, Settings, ShieldCheck, SlidersHorizontal } from "lucide-react";
+import Link from "next/link";
+import { BookOpenText, Download, Eye, GraduationCap, KeyRound, RotateCcw, Search, Settings, ShieldCheck, SlidersHorizontal, Trash2 } from "lucide-react";
 import { AiStoryPromptPanel } from "@/components/ai-story-prompt-panel";
 import { downloadJson } from "@/lib/download";
 import { tutorialModules } from "@/lib/learning";
-import { AppSettings, clearStories, defaultSettings, getSettings, listStories, listStoryPasscodes, markTutorialComplete, saveSettings } from "@/lib/storage";
+import { AppSettings, clearStories, defaultSettings, deleteStory, getSettings, listHiddenStories, listStories, listStoryPasscodes, markTutorialComplete, saveSettings, unhideStory } from "@/lib/storage";
+import { StoryDocument } from "@/lib/story";
 
 const sections = [
   "General",
@@ -23,6 +25,7 @@ const sections = [
 
 export function SettingsClient() {
   const [settings, setSettings] = useState<AppSettings>(defaultSettings);
+  const [hiddenStories, setHiddenStories] = useState<StoryDocument[]>([]);
   const [query, setQuery] = useState("");
   const [ready, setReady] = useState(false);
   const completed = settings.completedTutorials.length;
@@ -34,6 +37,7 @@ export function SettingsClient() {
       setSettings(loaded);
       setReady(true);
     });
+    listHiddenStories().then(setHiddenStories);
   }, []);
 
   useEffect(() => {
@@ -51,6 +55,7 @@ export function SettingsClient() {
     const next = { ...settings, ...patch };
     const saved = await saveSettings(next);
     setSettings(saved);
+    setHiddenStories(await listHiddenStories());
   }
 
   async function complete(id: string) {
@@ -85,7 +90,18 @@ export function SettingsClient() {
   async function clearLocalData() {
     await clearStories();
     await update(defaultSettings);
+    setHiddenStories([]);
     window.dispatchEvent(new Event("big-maq-onboarding-refresh"));
+  }
+
+  async function restoreStory(storyId: string) {
+    await unhideStory(storyId);
+    setHiddenStories(await listHiddenStories());
+  }
+
+  async function removeHiddenStory(storyId: string) {
+    await deleteStory(storyId);
+    setHiddenStories(await listHiddenStories());
   }
 
   if (!ready) return <p className="mt-8 muted">Opening settings...</p>;
@@ -101,7 +117,7 @@ export function SettingsClient() {
 
       {visibleSections.includes("General") && <SettingsCard icon={Settings} title="General">
         <SettingRow label="Theme"><Select value={settings.theme} onChange={(theme) => update({ theme: theme as AppSettings["theme"] })} options={["light", "dark", "system"]} /></SettingRow>
-        <SettingRow label="Language"><input className="input" value={settings.language} onChange={(event) => update({ language: event.target.value })} /></SettingRow>
+        <SettingRow label="Language"><Select value={settings.language} onChange={(language) => update({ language })} options={["English", "Arabic", "French", "Mandarin (simplified)", "Tamil", "Japanese"]} /></SettingRow>
         <SettingRow label="Interface Scale"><Select value={settings.interfaceScale} onChange={(interfaceScale) => update({ interfaceScale: interfaceScale as AppSettings["interfaceScale"] })} options={["compact", "comfortable", "large"]} /></SettingRow>
         <SettingRow label="Font Size"><Range value={settings.fontSize} min={12} max={24} onChange={(fontSize) => update({ fontSize })} /></SettingRow>
         <SettingRow label="Startup Page"><Select value={settings.startupPage} onChange={(startupPage) => update({ startupPage: startupPage as AppSettings["startupPage"] })} options={["home", "reader", "library", "settings"]} /></SettingRow>
@@ -202,6 +218,27 @@ export function SettingsClient() {
       </SettingsCard>}
 
       {visibleSections.includes("AI-Assisted Story Creation") && <AiStoryPromptPanel />}
+
+      <SettingsCard icon={Eye} title="Hidden Stories">
+        <p className="text-sm leading-6 text-slate-600">Hidden stories are removed from the Library and Reader. Restore them here whenever you want them visible again.</p>
+        {!hiddenStories.length ? <p className="rounded-2xl bg-slate-50 p-4 text-sm text-slate-500">No hidden stories right now.</p> : (
+          <div className="grid gap-3">
+            {hiddenStories.map((story) => (
+              <article className="rounded-2xl border border-slate-200 p-4" key={story.id}>
+                <p className="text-xs font-black uppercase tracking-widest text-indigo-600">{story.scenes.length} scenes</p>
+                <h3 className="mt-2 text-lg font-black text-indigo-950">{story.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{story.description || "A hidden branching story."}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <button className="button button-secondary px-3 py-2 text-sm" onClick={() => restoreStory(story.id)}><Eye size={15} /> Unhide</button>
+                  <Link className="button button-secondary px-3 py-2 text-sm" href={`/reader?storyId=${story.id}`}><BookOpenText size={15} /> Read</Link>
+                  <Link className="button button-primary px-3 py-2 text-sm" href={`/editor/${story.id}`}><Settings size={15} /> Edit</Link>
+                  <button className="button button-danger px-3 py-2 text-sm" onClick={() => removeHiddenStory(story.id)}><Trash2 size={15} /> Delete</button>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </SettingsCard>
     </section>
   );
 }

@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { BookOpenText, FileText, ImageOff, RotateCcw, ShieldAlert, Upload } from "lucide-react";
 import { demoStory, fanDemoDisclaimer } from "@/lib/demo";
 import { readStoryFile } from "@/lib/download";
-import { getStory, isSharedStory, listStories, saveStory, seedDemoStory } from "@/lib/storage";
+import { getStory, isSharedStory, listVisibleStories, saveStory, seedDemoStory } from "@/lib/storage";
 import { applyEffects, evaluateCondition, resolveSceneTransition, Scene, StoryDocument } from "@/lib/story";
 
 export function StoryReader() {
@@ -22,7 +22,7 @@ export function StoryReader() {
   const [loaded, setLoaded] = useState(false);
 
   async function refreshStories() {
-    const next = await listStories();
+    const next = await listVisibleStories();
     setStories(next);
     setLoaded(true);
     return next;
